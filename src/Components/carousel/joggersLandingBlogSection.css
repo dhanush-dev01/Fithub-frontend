@@ -1,0 +1,47 @@
+.joggersLandingBlogSection-container {
+  display: flex;
+  max-width: 1200px; 
+  height: 500px;
+  width: 100%;
+  padding: 1%; 
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), 2px 2px 2px rgba(0, 0, 0, 0.1);
+ 
+}
+
+.joggersLandingBlogSection-postWrap {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.joggersLandingBlogSection-contentWrap {
+  flex: 0.7;
+  padding: 2%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.joggersLandingBlogSection-image {
+  flex: 1.1;
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.joggersLandingBlogSection-title{
+  font-size: xx-large;
+  margin-bottom: 4%;
+  font-family: 'Broadway', sans-serif; /* Broadway font family */
+
+}
+.joggersLandingBlogSection-description{
+  font-size: large;
+
+}
+

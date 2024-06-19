@@ -1,0 +1,28 @@
+.header {
+  width: 90%;
+  background: rgba(255, 255, 255, 0); 
+  margin: 1% auto; 
+  height: 50px; 
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2%; 
+}
+
+.logo img {
+  height: 100px; 
+}
+
+.HeaderProfile a {
+  text-decoration: none;
+  color: whitesmoke; /* Default profile icon color */
+  display: flex;
+  align-items: center;
+}
+
+.HeaderProfile a:hover {
+  color: whitesmoke; 
+}
