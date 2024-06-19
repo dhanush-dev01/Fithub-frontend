@@ -1,0 +1,32 @@
+.about{
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
+.titleText {
+  font-size: 28px;
+  color: #333;
+}
+
+.row {
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+
+.column {
+  flex: 0 1 48%;
+  padding: 20px;
+}
+
+
+.imageWrap {
+  text-align: center;
+}
+
+.imageWrap img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
