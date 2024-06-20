@@ -20,20 +20,20 @@ const Login = () => {
             </video>
         <div className={`container ${isSignUp ? 'right-panel-active' : ''}`}>
             <div className="form-container sign-up-container">
-                <form action="#">
-                    <h1>Create Account</h1>
-                    <input type="text" placeholder="Name" />
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Password" />
-                    <input type="password" placeholder="Confirm Password" />
+                <form className='loginform' action="#">
+                    <h1 className='loginh1'>Create Account</h1>
+                    <input className='logininput' type="text" placeholder="Name" />
+                    <input className='logininput' type="email" placeholder="Email" />
+                    <input className='logininput' type="password" placeholder="Password" />
+                    <input className='logininput' type="password" placeholder="Confirm Password" />
                     <button className='loginc'>Sign Up</button>
                 </form>
             </div>
             <div className="form-container sign-in-container">
-                <form action="#">
-                    <h1>Login in</h1>
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Password" />
+                <form className='loginform' action="#">
+                    <h1 className='loginh1'>Login in</h1>
+                    <input className='logininput' type="email" placeholder="Email" />
+                    <input className='logininput' type="password" placeholder="Password" />
                     <button className='loginc'>LogIn</button>
                 </form>
             </div>

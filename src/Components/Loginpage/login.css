@@ -23,9 +23,10 @@
     transform: translate(-50%, -50%);
     z-index: -1;
 }
-h1 {
+.loginh1 {
 	font-weight: bold;
 	margin: 0;
+	color: #0c0b0b;
 }
 
 h2 {
@@ -81,7 +82,7 @@ a {
 
 
 
-form {
+.loginform {
 	background-color: #ffffff;
 	display: flex;
 	align-items: center;
@@ -92,7 +93,7 @@ form {
 	text-align: center;
 }
 
-input {
+.logininput{
 	background-color: #eee;
 	border: none;
 	padding: 12px 15px;
@@ -104,8 +105,8 @@ input {
 
 	background-color: transparent;
 	position: fixed;
-    top: 20%;
-    left: 30%;
+    top: 10%;
+    left: 5%;
 	overflow: hidden;
 	width: 768px;
 	max-width: 100%;
@@ -287,4 +288,18 @@ footer i {
 footer a {
     color: #3c97bf;
     text-decoration: none;
+}
+
+@media (min-width: 1500px) {
+	.container {
+
+		background-color: transparent;
+		position: fixed;
+		top: 20%;
+		left: 20%;
+		overflow: hidden;
+		width: 768px;
+		max-width: 100%;
+		min-height: 480px;
+	}
 }
