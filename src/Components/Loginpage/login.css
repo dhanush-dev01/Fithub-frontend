@@ -303,3 +303,18 @@ footer a {
 		min-height: 480px;
 	}
 }
+
+.checklabel{
+	color: #0c0b0b;
+	display: flex;
+	text-align: center;
+	width: 70%;
+	height: 5vh;
+	justify-content: space-around;
+	margin: 10px;
+	align-items: center;
+}
+.checklabel input{
+	border: 2px solid black;
+	width: 20px ;
+}

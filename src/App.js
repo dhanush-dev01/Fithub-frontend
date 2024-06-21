@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import CartPageMain from "./Components/CartPage/CartPageMain";
 import LandingPageMain from "./Components/Landing page/LandingPageMain";
@@ -8,8 +8,12 @@ import Login from './Components/Loginpage/login';
 import Header from './Components/Header/HeaderMainComponent';
 import AboutUs from './Components/AboutUsPage/AboutUs';
 import "./common.css"
+import Chat from './Components/Chat-components/chat';
+import ChatLogin from './Components/Chat-components/ChatLogin';
 
 function App() {
+  const [username, setUsername] = useState('');
+  const [community, setCommunity] = useState('');
   return (
     <Router>
       <div className="App">
