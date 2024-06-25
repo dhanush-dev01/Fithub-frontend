@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 import { client } from "../../client";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import "./joggersLandingBlogSection.css";
@@ -6,6 +6,7 @@ import "./joggersLandingBlogSection.css";
 export default function JoggersLandingBlogSection() {
   const [isBlogLoading, setIsBlogLoading] = useState(false);
   const [blogPosts, setBlogPosts] = useState([]);
+  const postsRef = useRef([]);
 
   const cleanUpBlogPosts = (rawdata) => {
     const cleanPosts = rawdata.map((post) => {
@@ -17,7 +18,6 @@ export default function JoggersLandingBlogSection() {
       if (!postBg.startsWith("http")) {
         postBg = `https:${postBg}`;
       }
-      // console.log("Cleaned Image URL:", postBg);
       const postType = fields.type;
       const updatedPost = {
         id,
@@ -55,29 +55,55 @@ export default function JoggersLandingBlogSection() {
     getBlogPosts();
   }, [getBlogPosts]);
 
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        } else {
+          entry.target.classList.remove('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    postsRef.current.forEach((post) => {
+      if (post) observer.observe(post);
+    });
+
+    return () => {
+      postsRef.current.forEach((post) => {
+        if (post) observer.unobserve(post);
+      });
+    };
+  }, [blogPosts]);
+
   return (
     <div className="joggersLandingBlogSection-container">
-      {blogPosts.map((item) => {
-        // console.log("Rendered Image URL:", item.postBg);
+      {blogPosts.map((item, index) => {
+        const isLeftAligned = index % 2 === 0;
+        const postWrapClass = `joggersLandingBlogSection-postWrap ${isLeftAligned ? 'left' : 'right'} ${index === 0 ? 'first-item' : ''}`;
+
         return (
-          <div
-            key={item.id}
-            id={`content-${item.id}`}
-            className={`joggersLandingBlogSection-postWrap ${item.postType}`}
-          >
-            <div 
-              className="joggersLandingBlogSection-image"
-              style={{ backgroundImage: `url(${item.postBg})` }}
-            ></div>
-            <div className="joggersLandingBlogSection-contentWrap">
-              <div className="joggersLandingBlogSection-text">
-                <h2 className="joggersLandingBlogSection-title">{item.postTitle}</h2>
-                <div className="joggersLandingBlogSection-description">
-                  {documentToReactComponents(item.postDescription)}
+          <React.Fragment key={item.id}>
+            <div
+              id={`content-${item.id}`}
+              className={postWrapClass}
+              ref={(el) => (postsRef.current[index] = el)}
+            >
+              <div 
+                className="joggersLandingBlogSection-image"
+                style={{ backgroundImage: `url(${item.postBg})` }}
+              ></div>
+              <div className="joggersLandingBlogSection-contentWrap">
+                <div className="joggersLandingBlogSection-text">
+                  <h2 className="joggersLandingBlogSection-title">{item.postTitle}</h2>
+                  <div className="joggersLandingBlogSection-description">
+                    {documentToReactComponents(item.postDescription)}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </React.Fragment>
         );
       })}
     </div>
