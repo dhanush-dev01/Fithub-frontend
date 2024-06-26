@@ -1,0 +1,30 @@
+.menu {
+  margin-top: 20px;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.menuItem:hover {
+  background-color: whitesmoke; 
+  color: black;
+  border-radius: 8px;
+}
+
+.icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.label {
+  flex-grow: 1;
+  white-space: nowrap;
+}

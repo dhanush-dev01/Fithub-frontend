@@ -1,0 +1,58 @@
+.userpage_Maincontainer {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  transition: all 0.3s ease;
+}
+
+.userpage_leftcontainer {
+  transition: width 0.3s ease;
+}
+
+.userpage_rightcontainer {
+  flex-grow: 1;
+  transition: margin-left 0.3s ease;
+}
+
+/* Handle desktop and tablet view */
+.collapsed .userpage_leftcontainer {
+  width: 60px;
+}
+
+.collapsed .userpage_rightcontainer {
+  width: calc(100% - 60px);
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .userpage_Maincontainer {
+    flex-direction: row;
+    position: relative;
+  }
+
+  .userpage_leftcontainer {
+    position: absolute;
+    z-index: 10;
+    height: 100%;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    width: 30px;
+  }
+
+  .userpage_Maincontainer .collapsed .userpage_leftcontainer {
+    transform: translateX(3);
+  }
+
+  .userpage_rightcontainer {
+    width: 100%;
+  }
+
+  .collapsed .userpage_rightcontainer {
+    width: 100%;
+  }
+
+
+  .content {
+    padding-top: 60px;
+  }
+}

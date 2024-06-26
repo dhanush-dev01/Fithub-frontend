@@ -1,21 +1,29 @@
 .joggersLandingBlogSection-container {
   display: flex;
+  flex-direction: column;
   max-width: 1200px; 
-  height: 500px;
   width: 100%;
   padding: 1%; 
   margin: 0 auto;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), 2px 2px 2px rgba(0, 0, 0, 0.1);
- 
+  overflow-x: hidden;
 }
 
 .joggersLandingBlogSection-postWrap {
   display: flex;
-  align-items: stretch;
+  height: 500px;
   width: 100%;
-  text-align: center;
   border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), 2px 2px 2px rgba(0, 0, 0, 0.1);
+  margin-bottom: 7%;
+  opacity: 0.2; 
+  transform: translateY(20px); 
+  transition: opacity 1s ease-out, transform 1s ease-out; 
+}
+
+.joggersLandingBlogSection-postWrap.visible {
+  opacity: 1; 
+  transform: translateY(0); 
 }
 
 .joggersLandingBlogSection-contentWrap {
@@ -27,21 +35,69 @@
 }
 
 .joggersLandingBlogSection-image {
+  margin: 1%;
   flex: 1.1;
-  border-radius: 8px;
-  background-size: cover;
+  border-radius: 12px;
+  background-size: contain; 
   background-position: center;
   background-repeat: no-repeat;
+  width: 100%; 
+  height: 90%; 
 }
 
-.joggersLandingBlogSection-title{
+
+
+.joggersLandingBlogSection-title {
   font-size: xx-large;
   margin-bottom: 4%;
-  font-family: 'Broadway', sans-serif; /* Broadway font family */
+  font-family: 'Broadway', sans-serif; 
+  color: whitesmoke;
+}
+
+.joggersLandingBlogSection-description {
+  font-size: large;
+  color: whitesmoke;
 
 }
-.joggersLandingBlogSection-description{
-  font-size: large;
 
+.joggersLandingBlogSection-postWrap.left {
+  flex-direction: row-reverse; 
+}
+
+.joggersLandingBlogSection-postWrap.right {
+  flex-direction: row; 
+}
+
+
+
+.joggersLandingBlogSection-postWrap.first-item {
+  box-shadow: none;
+  height: 640px;
+  box-sizing: border-box;
+  margin-bottom: 0;
+
+}
+
+
+.joggersLandingBlogSection-postWrap.left .joggersLandingBlogSection-title,
+.joggersLandingBlogSection-postWrap.left .joggersLandingBlogSection-description {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+}
+
+/* Initial hidden state for right-aligned (odd) items */
+.joggersLandingBlogSection-postWrap.right .joggersLandingBlogSection-title,
+.joggersLandingBlogSection-postWrap.right .joggersLandingBlogSection-description {
+  opacity: 0;
+  transform: translateX(100%);
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+}
+
+/* Visible state for all items */
+.joggersLandingBlogSection-postWrap.visible .joggersLandingBlogSection-title,
+.joggersLandingBlogSection-postWrap.visible .joggersLandingBlogSection-description {
+  opacity: 1;
+  transform: translateX(0);
 }
 

@@ -1,0 +1,30 @@
+.jogging-animation-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.jogging-svg {
+  width: 200px;
+  height: 200px;
+}
+
+.jogging-image {
+  x: 20px;
+  y: 20px;
+  width: 160px;
+  height: 160px;
+}
+
+.loading-circle {
+  cx: 100px;
+  cy: 100px;
+  r: 80px;
+  fill: none;
+  stroke: gray;
+  stroke-width: 6;
+  stroke-dasharray: 90;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+}

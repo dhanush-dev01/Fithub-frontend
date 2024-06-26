@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import CartPageMain from "./Components/CartPage/CartPageMain";
 import LandingPageMain from "./Components/Landing page/LandingPageMain";
@@ -7,14 +7,20 @@ import ProfilePageMain from "./Components/Profile Page/ProfilePageMain";
 import Login from './Components/Loginpage/login';
 import Header from './Components/Header/HeaderMainComponent';
 import AboutUs from './Components/AboutUsPage/AboutUs';
+import JoggingLoader from './Components/JoggingLoader/JoggingLoader';
 import "./common.css"
-// import Chat from './Components/Chat-components/Chat';
+import Footer from './Components/Footer/FooterMain';
+import UserPageMain from './Components/UserProfile/userPage';
+// import Chat from './Components/Chat-components/chat';
+// import ChatLogin from './Components/Chat-components/ChatLogin';
 import { AuthContext } from './Components/context/AuthContext';
 import ChatHome from './Components/ChatModule/ChatHome';
-
+import ChatLeader from './Components/chatdashboard_leader/chatleader';
+ 
 function App() {
-  const [username, setUsername] = useState('');
-  const [community, setCommunity] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [showFooter, setShowFooter] = useState(false);
+
   const {currentUser} = useContext(AuthContext)
 
   const ProtectedRoute = ({children}) =>{
@@ -23,16 +29,58 @@ function App() {
     }
     return children
   }
-  // console.log(currentUser);
+ 
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 800);
+ 
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+ 
+      if (scrollTop + windowHeight >= documentHeight - 100) {
+        setShowFooter(true);
+      } else {
+        setShowFooter(false);
+      }
+    };
+ 
+    window.addEventListener('scroll', handleScroll);
+ 
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+ 
   return (
     <Router>
       <div className="App">
+        {loading ? (
+          <JoggingLoader />
+        ) : (
+          <>
+            <Header />
+            <Routes>
+              <Route path="/profile" element={<ProfilePageMain />} />
+              <Route path="/products" element={<ProductListingPageMain />} />
+              <Route path="/cart" element={<CartPageMain />} />
+              <Route path="/about" element={<AboutUs />} />
+              <Route path="/user" element={<UserPageMain/>} />
+              {/* <Route path="/login" element={<Login />} /> */}
+              <Route path="/" element={<LandingPageMain />} />
+            </Routes>
+            {showFooter && <Footer />}
+          </>
+        )}
         <Routes>
           <Route path="/profile" element={<ProfilePageMain />} />
           <Route path="/products" element={<ProductListingPageMain />} />
           <Route path="/cart" element={<CartPageMain />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/chatleader" element={<ChatLeader />} />
           <Route path="/chat" element={<ProtectedRoute><ChatHome /></ProtectedRoute>} />
           <Route path="/" element={<LandingPageMain />} />
         </Routes>
@@ -40,5 +88,7 @@ function App() {
     </Router>
   );
 }
-
+ 
 export default App;
+ 
+ 

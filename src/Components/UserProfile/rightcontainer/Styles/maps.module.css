@@ -1,0 +1,106 @@
+/* maps.module.css */
+.recenterButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+  background: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.infoContainer {
+  margin-top: 10px;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalContent {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  position: relative;
+  width: 300px;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.modalHeader {
+  font-size: 20px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.toggleGroup {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.toggleGroup button {
+  padding: 10px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 16px;
+  margin: 0 5px;
+}
+
+.toggleGroup .active {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.inputField {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.inputField input,
+.inputField select {
+  padding: 5px;
+  margin: 0 5px;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.buttonGroup button {
+  padding: 10px;
+  margin: 0 5px;
+  cursor: pointer;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.buttonGroup button:hover {
+  background: #0056b3;
+}
