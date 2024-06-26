@@ -96,17 +96,17 @@ const Login = () => {
     const handleSignUpSubmit = async (e) => {
         e.preventDefault();
         try {
-            // const response = await axios.post('http://localhost:8080/customer/signUpCustomer', {
-            //     customerType: signUpData.customerType,
-            //     firstName: signUpData.firstName,
-            //     lastName: signUpData.lastName,
-            //     email: signUpData.email,
-            //     password: signUpData.password,
-            //     community: signUpData.community,
-            //     newPassword: signUpData.confirmPassword
-            // });
+            const response = await axios.post('http://localhost:8080/customer/signUpCustomer', {
+                customerType: signUpData.customerType,
+                firstName: signUpData.firstName,
+                lastName: signUpData.lastName,
+                email: signUpData.email,
+                password: signUpData.password,
+                community: signUpData.community,
+                newPassword: signUpData.confirmPassword
+            });
 
-            // if (response.status === 200) {
+            if (response.status === 200) {
                 // const auth = getAuth()
                 try{
                     createUserWithEmailAndPassword(auth, signUpData.email, signUpData.password).then(async( res) =>{
@@ -158,7 +158,8 @@ const Login = () => {
                           },
                         });
                         
-                        navigate("/chat")
+                        // navigate("/chat")
+                        navigate("/user")
                     })
 
                     // const storageRef = ref(storage, "");
@@ -191,7 +192,7 @@ const Login = () => {
                     console.log(error);
                 }
                 
-            // }
+            }
         } catch (error) {
             console.error('Error signing up:', error);
         }
@@ -222,21 +223,21 @@ const Login = () => {
     const handleSignInSubmit = async (e) => {
         e.preventDefault();
         try {
-            // const response = await axios.post('http://localhost:8080/customer/signInCustomer', {
-            //     email: signInData.email,
-            //     password: signInData.password
-            // });
+            const response = await axios.post('http://localhost:8080/customer/signInCustomer', {
+                email: signInData.email,
+                password: signInData.password
+            });
 
-            // if (response.status === 200) {
-                // const customerType = response.data.customerType;
-                // if (customerType === 'leader') {
-                //     navigate('/leaderdashboard');
-                // } else {
-                //     navigate('/userdashboard');
-                // }
+            if (response.status === 200) {
+                const customerType = response.data.customerType;
+                if (customerType === 'leader') {
+                    navigate('/leaderdashboard');
+                } else {
+                    navigate('/userdashboard');
+                }
                 await signInWithEmailAndPassword(auth, signInData.email, signInData.password)
-                navigate("/chat")
-            // }
+                // navigate("/chat")
+            }
         } catch (error) {
             console.error('Error signing in:', error);
         }
