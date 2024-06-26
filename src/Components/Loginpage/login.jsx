@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import {createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile} from "firebase/auth"
 import { loadStripe } from '@stripe/stripe-js';
-import { Elements, useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
 import './login.css';
 import '../commoncss/App.css';
+import { auth, db, storage} from "../ChatModule/firebase"
+import { ref, uploadBytesResumable, getDownloadURL} from  "firebase/storage"
+import { setDoc, doc, serverTimestamp, updateDoc, arrayUnion, getDoc } from "firebase/firestore";
+import { async } from 'q';
 
 const stripePromise = loadStripe('pk_test_51PKCXVSINBqCF5XVGturv55RaoNh5g40GAkc7OQPvWJef1yYZQh0cuT38ls6zMV8kJD6jDNvgjxdH4ZQu3DtMdqR00UEKKFF3y'); // Replace with your Stripe publishable key
 
@@ -91,19 +96,102 @@ const Login = () => {
     const handleSignUpSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8080/customer/signUpCustomer', {
-                customerType: signUpData.customerType,
-                firstName: signUpData.firstName,
-                lastName: signUpData.lastName,
-                email: signUpData.email,
-                password: signUpData.password,
-                community: signUpData.community,
-                newPassword: signUpData.confirmPassword
-            });
+            // const response = await axios.post('http://localhost:8080/customer/signUpCustomer', {
+            //     customerType: signUpData.customerType,
+            //     firstName: signUpData.firstName,
+            //     lastName: signUpData.lastName,
+            //     email: signUpData.email,
+            //     password: signUpData.password,
+            //     community: signUpData.community,
+            //     newPassword: signUpData.confirmPassword
+            // });
 
-            if (response.status === 200) {
-                navigate('/landingpage');
-            }
+            // if (response.status === 200) {
+                // const auth = getAuth()
+                try{
+                    createUserWithEmailAndPassword(auth, signUpData.email, signUpData.password).then(async( res) =>{
+                        await updateProfile(res.user,{
+                            displayName: signUpData.firstName
+                        })
+                        await setDoc(doc(db, "users", res.user.uid),{
+                            uid: res.user.uid,
+                            displayName: signUpData.firstName,
+                            email: signUpData.email,
+                            // photoURL: downloadURL
+                        })
+                        await setDoc(doc(db, "userChats", res.user.uid),{})
+
+                        const groupId = "global_group_chat";
+                        const groupData = {
+                          groupId,
+                          groupName: "Global Group Chat",
+                          users: arrayUnion({
+                            uid: res.user.uid,
+                            displayName: signUpData.firstName,
+                          }),
+                          messages: [],
+                          date: serverTimestamp(),
+                        };
+
+                        const groupChatRef = doc(db, "chats", groupId);
+                        const groupChatSnapshot = await getDoc(groupChatRef);
+
+                        if (groupChatSnapshot.exists()) {
+                          // Update existing group chat
+                          await updateDoc(groupChatRef, {
+                            users: arrayUnion({
+                              uid: res.user.uid,
+                              displayName: signUpData.firstName,
+                            }),
+                          });
+                        } else {
+                          // Create a new group chat
+                          await setDoc(groupChatRef, groupData);
+                        }
+
+                        // Update userChats collection for the new user
+                        await updateDoc(doc(db, "userChats", res.user.uid), {
+                          [groupId]: {
+                            groupId,
+                            groupName: "Global Group Chat",
+                            date: serverTimestamp(),
+                          },
+                        });
+                        
+                        navigate("/chat")
+                    })
+
+                    // const storageRef = ref(storage, "");
+
+                    // const uploadTask = uploadBytesResumable(storageRef, file);
+
+                    // uploadTask.on(
+                    //     (error)=>{
+                    //         console.log(error);
+                    //     },
+                    //     () =>{
+                    //         getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) =>{
+                    //             await updateProfile(await res.user,{
+                    //                 displayName: signUpData.firstName + signUpData.lastName,
+                    //                 photoURL: downloadURL
+                    //             })
+                    //             await setDoc(doc(db, "users", res.user.uid),{
+                    //                 uid: res.user.uid,
+                    //                 displayName: signUpData.firstName + signUpData.lastName,
+                    //                 email: signUpData.email,
+                    //                 photoURL: downloadURL
+                    //             })
+                    //         })
+                    //     }
+
+                    // )
+                    
+                }
+                catch(error){
+                    console.log(error);
+                }
+                
+            // }
         } catch (error) {
             console.error('Error signing up:', error);
         }
@@ -134,19 +222,21 @@ const Login = () => {
     const handleSignInSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8080/customer/signInCustomer', {
-                email: signInData.email,
-                password: signInData.password
-            });
+            // const response = await axios.post('http://localhost:8080/customer/signInCustomer', {
+            //     email: signInData.email,
+            //     password: signInData.password
+            // });
 
-            if (response.status === 200) {
-                const customerType = response.data.customerType;
-                if (customerType === 'leader') {
-                    navigate('/leaderdashboard');
-                } else {
-                    navigate('/userdashboard');
-                }
-            }
+            // if (response.status === 200) {
+                // const customerType = response.data.customerType;
+                // if (customerType === 'leader') {
+                //     navigate('/leaderdashboard');
+                // } else {
+                //     navigate('/userdashboard');
+                // }
+                await signInWithEmailAndPassword(auth, signInData.email, signInData.password)
+                navigate("/chat")
+            // }
         } catch (error) {
             console.error('Error signing in:', error);
         }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Cart from './Cart';
 import ProductListingPageMain from '../ProductListingPage/ProductListingPageMain';
-import Navbar from '../Navbar'; // Assuming you want to use the same Navbar
+import Navbar from './Navbar'; // Assuming you want to use the same Navbar
 
 function CartPageMain() {
   const [cartItems, setCartItems] = useState([]);

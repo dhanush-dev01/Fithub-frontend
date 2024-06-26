@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CartItem from './CartItem';
-import '../../styles.css';
+import './styles/cartStyles.css';
 import { useLocation } from 'react-router-dom';
 
 function Cart({ cartItems, setIsCartOpen, updateQuantity, removeFromCart, isOpen }) {
