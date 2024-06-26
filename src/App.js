@@ -10,6 +10,7 @@ import AboutUs from './Components/AboutUsPage/AboutUs';
 import JoggingLoader from './Components/JoggingLoader/JoggingLoader';
 import "./common.css"
 import Footer from './Components/Footer/FooterMain';
+import UserPageMain from './Components/UserProfile/userPage';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -52,6 +53,7 @@ function App() {
               <Route path="/products" element={<ProductListingPageMain />} />
               <Route path="/cart" element={<CartPageMain />} />
               <Route path="/about" element={<AboutUs />} />
+              <Route path="/user" element={<UserPageMain/>} />
               {/* <Route path="/login" element={<Login />} /> */}
               <Route path="/" element={<LandingPageMain />} />
             </Routes>
