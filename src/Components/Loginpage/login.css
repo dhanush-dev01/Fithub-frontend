@@ -100,7 +100,9 @@ a {
 	margin: 8px 0;
 	width: 100%;
 }
-
+.error{
+	color: black;
+}
 .container {
 
 	background-color: transparent;

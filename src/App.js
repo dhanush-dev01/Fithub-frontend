@@ -10,6 +10,7 @@ import AboutUs from './Components/AboutUsPage/AboutUs';
 import "./common.css"
 import Chat from './Components/Chat-components/chat';
 import ChatLogin from './Components/Chat-components/ChatLogin';
+import ChatLeader from './Components/chatdashboard_leader/chatleader';
 
 function App() {
   const [username, setUsername] = useState('');
@@ -23,9 +24,8 @@ function App() {
           <Route path="/cart" element={<CartPageMain />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/chatleader" element={<ChatLeader />} />
           <Route path="/" element={<LandingPageMain />} />
-         
-
         </Routes>
       </div>
     </Router>
