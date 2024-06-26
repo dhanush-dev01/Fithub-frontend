@@ -12,7 +12,9 @@
 }
 
 .menuItem:hover {
-  background-color: #9c51b6; 
+  background-color: whitesmoke; 
+  color: black;
+  border-radius: 8px;
 }
 
 .icon {
