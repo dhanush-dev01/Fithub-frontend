@@ -1,6 +1,6 @@
 import React from 'react';
 import './Styles/HeaderMainComponent.css';
-import { AiOutlineHome, AiOutlineShoppingCart, AiOutlineUser, AiOutlineAppstore, AiOutlineInfoCircle } from 'react-icons/ai';
+import {AiOutlineUser} from 'react-icons/ai';
 import logo from '../../assets/Images/Logo-Light.png';
 
 const Header = () => {
