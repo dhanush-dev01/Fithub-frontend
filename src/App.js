@@ -87,43 +87,12 @@ function AppWrapper() {
   return (
     <Router>
       <App />
-    <Router>
-      <div className="App">
-        {loading ? (
-          <JoggingLoader />
-        ) : (
-          <>
-            <Header />
-            <Routes>
-              <Route path="/profile" element={<ProfilePageMain />} />
-              <Route path="/products" element={<ProductListingPageMain />} />
-              <Route path="/cart" element={<CartPageMain />} />
-              <Route path="/about" element={<AboutUs />} />
-              <Route path="/user" element={<UserPageMain/>} />
-              {/* <Route path="/login" element={<Login />} /> */}
-              <Route path="/" element={<LandingPageMain />} />
-            </Routes>
-            {showFooter && <Footer />}
-          </>
-        )}
-        <Routes>
-          <Route path="/profile" element={<ProfilePageMain />} />
-          <Route path="/products" element={<ProductListingPageMain />} />
-          <Route path="/cart" element={<CartPageMain />} />
-          <Route path="/about" element={<AboutUs />} />
-          
-          
-          
-          <Route path="/" element={<LandingPageMain />} />
-        </Routes>
-      </div>
+    
     </Router>
   );
 }
 
 export default AppWrapper;
 
- 
-export default App;
  
  
