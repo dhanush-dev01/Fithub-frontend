@@ -15,14 +15,17 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 } */
 
+/* cartStyles.css */
+
 .joggersCartNavbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #37373b; /* Flipkart's blue color */
+  background-color: #37373b; /* Custom color */
   color: white;
   padding: 10px 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  font-family: inherit; /* Inherit font from global styles */
 }
 
 .joggersCartNavbar h1 {
@@ -58,6 +61,8 @@
   flex-wrap: wrap;
   gap: 40px;
   margin-top: 20px;
+  margin-bottom: 150px;
+  justify-content: center;
 }
 
 .product {
@@ -301,6 +306,23 @@
 
 .coupon-field button:hover {
   background-color: #388E3C;
+}
+
+.remove-coupon-button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 0 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 20px;
+  line-height: 1;
+  margin-left: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.remove-coupon-button:hover {
+  background-color: #d32f2f;
 }
 
 .loader {

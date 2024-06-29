@@ -13,17 +13,16 @@ function Cart({ cartItems, setIsCartOpen, updateQuantity, removeFromCart, isOpen
 
   const location = useLocation();
 
-  useEffect(() => {
-    const urlParams = new URLSearchParams(location.search);
-    const sessionId = urlParams.get('session_id');
-    if (sessionId) {
-      handleSessionCheck(sessionId);
-    }
-  }, [location.search]);
+  // useEffect(() => {
+  //   const urlParams = new URLSearchParams(location.search);
+  //   const sessionId = urlParams.get('session_id');
+  //   if (sessionId) {
+  //     handleSessionCheck(sessionId);
+  //   }
+  // }, [location.search]);
 
   const handleSessionCheck = async (sessionId) => {
     try {
-      // console.log(coupon);
       const response = await fetch(`http://localhost:8000/stripe-session/${sessionId}`);
       const sessionData = await response.json();
       if (sessionData.payment_status !== 'paid') {
@@ -33,7 +32,7 @@ function Cart({ cartItems, setIsCartOpen, updateQuantity, removeFromCart, isOpen
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            coupon: "EdeHpEfX",
+            coupon: couponName,
           }),
         });
       }
@@ -81,6 +80,14 @@ function Cart({ cartItems, setIsCartOpen, updateQuantity, removeFromCart, isOpen
     } finally {
       setLoading(false);
     }
+  };
+
+  const removeCoupon = () => {
+    setCoupon('');
+    setDiscountAmount(0);
+    setCouponName('');
+    setSuccessMessage('');
+    setError('');
   };
 
   const total = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
@@ -136,11 +143,16 @@ function Cart({ cartItems, setIsCartOpen, updateQuantity, removeFromCart, isOpen
               placeholder="Have a Coupon?"
               value={coupon}
               onChange={handleCouponChange}
-              disabled={loading}
+              disabled={loading || couponName}
             />
-            <button onClick={applyCoupon} disabled={loading}>
+            <button onClick={applyCoupon} disabled={loading || couponName}>
               {loading ? 'Applying...' : 'Apply'}
             </button>
+            {couponName && (
+              <button className="remove-coupon-button" onClick={removeCoupon}>
+                ×
+              </button>
+            )}
           </div>
           {loading && <p className="loader">Loading...</p>}
           {error && <p className="error-message">{error}</p>}

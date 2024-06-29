@@ -16,6 +16,7 @@ import UserPageMain from './Components/UserProfile/userPage';
 import { AuthContext } from './Components/context/AuthContext';
 import ChatHome from './Components/ChatModule/ChatHome';
 import ChatLeader from './Components/chatdashboard_leader/chatleader';
+import Receipt from './Components/CartPage/CartReceipt';
  
 function App() {
   const [loading, setLoading] = useState(true);
@@ -61,29 +62,34 @@ function App() {
           <JoggingLoader />
         ) : (
           <>
-            <Header />
-            <Routes>
+            {window.location.pathname != "/cart" &&<Header />}
+            {/* <Routes>
               <Route path="/profile" element={<ProfilePageMain />} />
               <Route path="/products" element={<ProductListingPageMain />} />
               <Route path="/cart" element={<CartPageMain />} />
               <Route path="/about" element={<AboutUs />} />
               <Route path="/user" element={<UserPageMain/>} />
-              {/* <Route path="/login" element={<Login />} /> */}
+              <Route path="/login" element={<Login />} />
               <Route path="/" element={<LandingPageMain />} />
-            </Routes>
-            {showFooter && <Footer />}
-          </>
-        )}
-        <Routes>
+            </Routes> */
+            <Routes>
           <Route path="/profile" element={<ProfilePageMain />} />
           <Route path="/products" element={<ProductListingPageMain />} />
           <Route path="/cart" element={<CartPageMain />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/user" element={<UserPageMain/>} />
           <Route path="/chatleader" element={<ChatLeader />} />
           <Route path="/chat" element={<ProtectedRoute><ChatHome /></ProtectedRoute>} />
+          <Route path="/complete" element={<Receipt />} />
           <Route path="/" element={<LandingPageMain />} />
         </Routes>
+            }
+            
+            {showFooter && window.location.pathname != "/complete"  && <Footer />}
+          </>
+        )}
+        
       </div>
     </Router>
   );

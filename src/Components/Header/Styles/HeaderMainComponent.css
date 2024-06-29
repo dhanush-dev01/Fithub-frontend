@@ -19,6 +19,10 @@
   max-height: 100px; 
 }
 
+.HeaderProfile{
+  display: flex;
+}
+
 .HeaderProfile a {
   text-decoration: none; 
   color: whitesmoke; 
