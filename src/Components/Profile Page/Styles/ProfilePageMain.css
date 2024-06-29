@@ -1,0 +1,187 @@
+@keyframes easeIn {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .profilePage {
+    display: flex;
+    padding: 20px;
+    color: #333;
+    border-radius: 12px;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), 2px 2px 2px rgba(0, 0, 0, 0.3);
+    height: 70vh;
+  }
+  
+  .profileSection {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    border-radius: 8px;
+  }
+  
+  .profileIcon {
+    position: absolute;
+    border: 2px solid white;
+    top: -65px;
+    left: -110px;
+    margin-top: 20px;
+    width: 14vw;
+    height: 24vh;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+  
+  .userName {
+    font-size: 28px;
+    color: whitesmoke;
+    margin: 0;
+    font-family: 'Broadway', sans-serif;
+  }
+  
+  .userBio {
+    font-size: 16px;
+    color: whitesmoke;
+    margin-top: 5px;
+    font-family: 'Broadway', sans-serif;
+    text-align: center;
+  }
+  
+  .infoSection {
+    margin-left: 8%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 90%;
+  }
+  
+  .ProfilePagecard {
+    height: 15vh;
+    margin: 2%;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex: 1 1 45%;
+    text-align: center;
+    border: 1px solid whitesmoke;
+    opacity: 0;
+    animation: easeIn 0.7s forwards;
+  }
+  
+  .friendSection{
+    animation-delay: 0s;
+  }
+  
+  .cartSection {
+    animation-delay: 0.5s;
+  }
+  
+  .communitySection  {
+    animation-delay: 1s;
+  }
+  
+  .ActivitySection {
+    animation-delay: 1.5s;
+  }
+  
+  .NamePlusBio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .ProfilePagecardIcon {
+    font-size: 24px;
+    color: whitesmoke;
+  }
+  
+  .ProfilePagecard h3 {
+    font-size: 20px;
+    color: whitesmoke;
+  }
+  
+  .ProfilePagecard p {
+    font-size: 18px;
+    color: whitesmoke;
+    margin: 0;
+  }
+  
+  .iconPlusName {
+    display: flex;
+    gap: 4%;
+    justify-content: center;
+    margin-top: 10%;
+  }
+  
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+  }
+  
+  .popup {
+    width: 40vw;
+    height: 40vh;
+    background-color: whitesmoke;
+    padding: 20px;
+    border: 1px solid grey;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    gap: 4%;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+  }
+  
+  .popupImage {
+    width: 8vw;
+    height: 15vh;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+  
+  .popupImage:hover {
+    transform: scale(1.1);
+  }
+  
+  .closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: black;
+  }
+  
+  .communityPlusActvity {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .communityPlusActvity .iconPlusName {
+    margin-top: 3%;
+  }
+  

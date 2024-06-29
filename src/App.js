@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation, Navigate } from 'react-router-dom';
 import CartPageMain from "./Components/CartPage/CartPageMain";
 import LandingPageMain from "./Components/Landing page/LandingPageMain";
 import ProductListingPageMain from "./Components/ProductListingPage/ProductListingPageMain";
@@ -20,6 +20,8 @@ import ChatLeader from './Components/chatdashboard_leader/chatleader';
 function App() {
   const [loading, setLoading] = useState(true);
   const [showFooter, setShowFooter] = useState(false);
+  const location = useLocation();
+
 
   const {currentUser} = useContext(AuthContext)
 
@@ -53,8 +55,38 @@ function App() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  const isLandingPage = location.pathname === '/';
+
  
   return (
+    <div className="App">
+      {loading ? (
+        <JoggingLoader />
+      ) : (
+        <>
+          <Header isLandingPage={isLandingPage} />
+          <Routes>
+            <Route path="/profile" element={<ProfilePageMain />} />
+            <Route path="/products" element={<ProductListingPageMain />} />
+            <Route path="/cart" element={<CartPageMain />} />
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/user" element={<UserPageMain/>} />
+            <Route path="/chat" element={<ProtectedRoute><ChatHome /></ProtectedRoute>} />
+            <Route path="/" element={<LandingPageMain />} />
+          </Routes>
+          {showFooter && <Footer />}
+        </>
+      )}
+    </div>
+  );
+}
+
+function AppWrapper() {
+  return (
+    <Router>
+      <App />
     <Router>
       <div className="App">
         {loading ? (
@@ -79,15 +111,18 @@ function App() {
           <Route path="/products" element={<ProductListingPageMain />} />
           <Route path="/cart" element={<CartPageMain />} />
           <Route path="/about" element={<AboutUs />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/chatleader" element={<ChatLeader />} />
-          <Route path="/chat" element={<ProtectedRoute><ChatHome /></ProtectedRoute>} />
+          
+          
+          
           <Route path="/" element={<LandingPageMain />} />
         </Routes>
       </div>
     </Router>
   );
 }
+
+export default AppWrapper;
+
  
 export default App;
  

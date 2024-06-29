@@ -1,0 +1,87 @@
+.leader-community-container {
+  padding: 1%;
+  border-radius: 8px;
+  max-width: 50%;
+  margin: auto;
+  color: whitesmoke;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.create-Community-button,
+.submit-Community-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: block;
+  margin: 20px auto;
+  font-size: 16px;
+}
+
+.create-Community-button:hover,
+.submit-Community-button:hover {
+  background-color: whitesmoke;
+  color: black;
+}
+
+.community-form {
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.community-list {
+  margin-top: 20px;
+}
+
+.community-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.community-name {
+  font-weight: bold;
+}
+
+.community-location {
+  display: block;
+  margin-top: 5px;
+}
+
+.delete-Community-button {
+  background-color: #dc3545;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
