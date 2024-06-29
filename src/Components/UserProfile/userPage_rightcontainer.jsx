@@ -5,6 +5,7 @@ import Maps from './rightcontainer/maps';
 import History from './rightcontainer/history';
 import UserCommunity from '../IntegratedCommunityPage/LeaderCommunityPage/LeaderCommunity';
 import ProfilePage from '../Profile Page/ProfilePageMain';
+import UserCommunityPage from '../IntegratedCommunityPage/UserCommunityPage/UserCommunityPage';
 
 
 
@@ -21,6 +22,8 @@ const UserPage_rightcontainer = ({ selectedItem }) => {
         return <UserCommunity />;
       case 'profile':
         return <ProfilePage />;
+      case 'community':
+        return <UserCommunityPage />;
       default:
         return <Dashboard />;
     }
