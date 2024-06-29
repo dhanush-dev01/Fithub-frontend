@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Cart from './Cart';
 import ProductListingPageMain from '../ProductListingPage/ProductListingPageMain';
 import Navbar from './Navbar'; // Assuming you want to use the same Navbar
+import Header from '../Header/HeaderMainComponent';
 
 function CartPageMain() {
   const [cartItems, setCartItems] = useState([]);
@@ -34,7 +35,8 @@ function CartPageMain() {
 
   return (
     <div className="App">
-      <Navbar cartItems={cartItems} setIsCartOpen={setIsCartOpen} />
+      {/* <Navbar cartItems={cartItems} setIsCartOpen={setIsCartOpen} /> */}
+      <Header cartItems={cartItems} setIsCartOpen={setIsCartOpen} />
       <ProductListingPageMain addToCart={addToCart} />
       <Cart
         cartItems={cartItems}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { loadStripe } from "@stripe/stripe-js";
 import {
@@ -123,6 +123,91 @@ const Login = () => {
         );
  
         if (response.status === 200) {
+            try{
+                createUserWithEmailAndPassword(auth, signUpData.email, signUpData.password).then(async( res) =>{
+                    await updateProfile(res.user,{
+                        displayName: signUpData.firstName
+                    })
+                    await setDoc(doc(db, "users", res.user.uid),{
+                        uid: res.user.uid,
+                        displayName: signUpData.firstName,
+                        email: signUpData.email,
+                        customerType: signUpData.customerType
+                        // photoURL: downloadURL
+                    })
+                    await setDoc(doc(db, "userChats", res.user.uid),{})
+    
+                    const groupId = "global_group_chat";
+                    const groupData = {
+                      groupId,
+                      groupName: "Community Group Chat",
+                      users: arrayUnion({
+                        uid: res.user.uid,
+                        displayName: signUpData.firstName,
+                      }),
+                      messages: [],
+                      date: serverTimestamp(),
+                    };
+    
+                    const groupChatRef = doc(db, "chats", groupId);
+                    const groupChatSnapshot = await getDoc(groupChatRef);
+    
+                    if (groupChatSnapshot.exists()) {
+                      // Update existing group chat
+                      await updateDoc(groupChatRef, {
+                        users: arrayUnion({
+                          uid: res.user.uid,
+                          displayName: signUpData.firstName,
+                        }),
+                      });
+                    } else {
+                      // Create a new group chat
+                      await setDoc(groupChatRef, groupData);
+                    }
+    
+                    // Update userChats collection for the new user
+                    await updateDoc(doc(db, "userChats", res.user.uid), {
+                      [groupId]: {
+                        groupId,
+                        groupName: "Community Group Chat",
+                        date: serverTimestamp(),
+                      },
+                    });
+                    
+                    // navigate("/chat")
+                    navigate("/user")
+                })
+    
+                // const storageRef = ref(storage, "");
+    
+                // const uploadTask = uploadBytesResumable(storageRef, file);
+    
+                // uploadTask.on(
+                //     (error)=>{
+                //         console.log(error);
+                //     },
+                //     () =>{
+                //         getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) =>{
+                //             await updateProfile(await res.user,{
+                //                 displayName: signUpData.firstName + signUpData.lastName,
+                //                 photoURL: downloadURL
+                //             })
+                //             await setDoc(doc(db, "users", res.user.uid),{
+                //                 uid: res.user.uid,
+                //                 displayName: signUpData.firstName + signUpData.lastName,
+                //                 email: signUpData.email,
+                //                 photoURL: downloadURL
+                //             })
+                //         })
+                //     }
+    
+                // )
+                
+            }
+            catch(error){
+                console.log(error);
+            }
+            // navigate("/chat")
           navigate("/landingpage");
           console.log(response);
           console.log("response in line 128");
@@ -143,8 +228,7 @@ const Login = () => {
   const handleLeaderSignUpData = async (signUpData1) => {
     // e.preventDefault();
     try {
-      console.log(signUpData1);
-      console.log("response in line 143");
+      // console.log(signUpData1);
       const response = await axios.post(
         "http://localhost:8080/customer/signUpCustomer",
         {
@@ -169,6 +253,7 @@ const Login = () => {
                     uid: res.user.uid,
                     displayName: signUpData.firstName,
                     email: signUpData.email,
+                    customerType: "leader"
                     // photoURL: downloadURL
                 })
                 await setDoc(doc(db, "userChats", res.user.uid),{})
@@ -210,7 +295,7 @@ const Login = () => {
                   },
                 });
                 
-                // navigate("/chat")
+                
                 navigate("/user")
             })
 
@@ -263,18 +348,26 @@ const Login = () => {
  
       if (response.status === 200) {
         const customerType = response.data.customerType;
-        if (customerType === "leader") {
-          navigate("/leaderdashboard");
-          console.log(response);
-        } else {
-          navigate("/user");
-          console.log(response);
-        }
+        // if (customerType === "leader") {
+        //   navigate("/leaderdashboard");
+        // } else {
+        //   navigate("/userdashboard");
+        // }
         const customerId = response.data.customer.id;
         console.log("Customer ID:", customerId);
         localStorage.setItem("customerId", customerId);
-
         await signInWithEmailAndPassword(auth, signInData.email, signInData.password)
+        .then(()=>{
+          // if (customerType === "leader") {
+          //   navigate("/leaderdashboard");
+          //   console.log(response);
+          // } else {
+          //   navigate("/user");
+          //   console.log(response);
+          // }
+            navigate("/user")
+        })
+        
       }
     } catch (error) {
       console.error("Error signing in:", error);
@@ -360,7 +453,7 @@ const Login = () => {
           <source src="bg2.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        <div className={`container ${isSignUp ? "right-panel-active" : ""}`}>
+        <div className={`containerLogin ${isSignUp ? "right-panel-active" : ""}`}>
           <div className="form-container sign-up-container">
             <form className="loginform" onSubmit={handleSignUpSubmit}>
               <h1 className="loginh1">Create Account</h1>

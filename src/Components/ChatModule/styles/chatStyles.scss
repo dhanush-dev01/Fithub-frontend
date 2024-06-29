@@ -94,12 +94,13 @@
     align-items: center;
     justify-content: center;
   
-    .container {
-    //   border: 1px solid white;
-    //   border-radius: 10px;
+    .container1 {
+      border: 1px solid white;
+      border-radius: 10px;
       width: 65%;
       height: 80%;
       display: flex;
+      margin-bottom: 100px;
       overflow: hidden;
       @include tablet {
        width: 90%;

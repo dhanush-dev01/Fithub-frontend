@@ -16,6 +16,7 @@ import UserPageMain from './Components/UserProfile/userPage';
 import { AuthContext } from './Components/context/AuthContext';
 import ChatHome from './Components/ChatModule/ChatHome';
 import ChatLeader from './Components/chatdashboard_leader/chatleader';
+import Receipt from './Components/CartPage/CartReceipt';
  
 function App() {
   const [loading, setLoading] = useState(true);
@@ -65,7 +66,7 @@ function App() {
         <JoggingLoader />
       ) : (
         <>
-          <Header isLandingPage={isLandingPage} />
+        {window.location.pathname != "/cart" &&<Header isLandingPage={isLandingPage} />}
           <Routes>
             <Route path="/profile" element={<ProfilePageMain />} />
             <Route path="/products" element={<ProductListingPageMain />} />
@@ -76,7 +77,7 @@ function App() {
             <Route path="/chat" element={<ProtectedRoute><ChatHome /></ProtectedRoute>} />
             <Route path="/" element={<LandingPageMain />} />
           </Routes>
-          {showFooter && <Footer />}
+          {showFooter && window.location.pathname != "/complete" && <Footer />}
         </>
       )}
     </div>
