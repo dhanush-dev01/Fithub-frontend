@@ -144,16 +144,16 @@ export default function Maps() {
   };
 
   const saveActivity = async () => {
+    const customerId = localStorage.getItem('customerid'); // Retrieve customer ID from local storage
     const activity = {
-      distance: distance / 1000, // converting distance to kilometers
-      time: `${Math.floor(timer / 3600)}h ${Math.floor((timer % 3600) / 60)}m ${timer % 60}s`,
-      goal: `${goal} ${goalUnit}`,
-      goalAchieved: goalAchieved, // Adding the goal achieved status
-      date: new Date().toLocaleString()
+      customerid: customerId,
+      date: new Date().toLocaleDateString(),
+      record: Math.floor(timer / 60) // converting timer to minutes
     };
 
     try {
-      const response = await axios.post('http://localhost:5000/save-activity', activity, {
+      const response = await axios.post('http://localhost:5000/customer/appendRecords', null, {
+        params: activity,
         headers: {
           'Content-Type': 'application/json'
         }

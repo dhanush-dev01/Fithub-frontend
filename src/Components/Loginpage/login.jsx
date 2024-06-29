@@ -124,6 +124,13 @@ const Login = () => {
  
         if (response.status === 200) {
           navigate("/landingpage");
+          console.log(response);
+          console.log("response in line 128");
+          const customerId = response.data.customer.id;
+          console.log("Customer ID:", customerId);
+          localStorage.setItem("customerId", customerId);
+
+
         }
       } catch (error) {
         console.error("Error signing up:", error);
@@ -137,6 +144,7 @@ const Login = () => {
     // e.preventDefault();
     try {
       console.log(signUpData1);
+      console.log("response in line 143");
       const response = await axios.post(
         "http://localhost:8080/customer/signUpCustomer",
         {
@@ -257,9 +265,15 @@ const Login = () => {
         const customerType = response.data.customerType;
         if (customerType === "leader") {
           navigate("/leaderdashboard");
+          console.log(response);
         } else {
-          navigate("/userdashboard");
+          navigate("/user");
+          console.log(response);
         }
+        const customerId = response.data.customer.id;
+        console.log("Customer ID:", customerId);
+        localStorage.setItem("customerId", customerId);
+
         await signInWithEmailAndPassword(auth, signInData.email, signInData.password)
       }
     } catch (error) {

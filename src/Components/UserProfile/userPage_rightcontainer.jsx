@@ -3,6 +3,7 @@ import styles from './Styles/userPage_rightcontainer.module.css';
 import Dashboard from './rightcontainer/dashboard';
 import Maps from './rightcontainer/maps';
 import History from './rightcontainer/history';
+import UserCommunityPage from '../IntegratedCommunityPage/UserCommunityPage/UserCommunityPage';
 
 
 
@@ -13,8 +14,10 @@ const UserPage_rightcontainer = ({ selectedItem }) => {
         return <Dashboard />;
       case 'maps':
         return <Maps />;
-        case 'history':
-          return <History />;
+      case 'history':
+        return <History />;
+      case 'community':
+        return <UserCommunityPage />;
       default:
         return <Dashboard />;
     }

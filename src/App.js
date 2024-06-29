@@ -62,19 +62,15 @@ function App() {
         ) : (
           <>
             <Header />
-            <Routes>
+            {/* <Routes>
               <Route path="/profile" element={<ProfilePageMain />} />
               <Route path="/products" element={<ProductListingPageMain />} />
               <Route path="/cart" element={<CartPageMain />} />
               <Route path="/about" element={<AboutUs />} />
               <Route path="/user" element={<UserPageMain/>} />
-              {/* <Route path="/login" element={<Login />} /> */}
               <Route path="/" element={<LandingPageMain />} />
-            </Routes>
-            {showFooter && <Footer />}
-          </>
-        )}
-        <Routes>
+            </Routes> */
+            <Routes>
           <Route path="/profile" element={<ProfilePageMain />} />
           <Route path="/products" element={<ProductListingPageMain />} />
           <Route path="/cart" element={<CartPageMain />} />
@@ -83,7 +79,13 @@ function App() {
           <Route path="/chatleader" element={<ChatLeader />} />
           <Route path="/chat" element={<ProtectedRoute><ChatHome /></ProtectedRoute>} />
           <Route path="/" element={<LandingPageMain />} />
+          <Route path="/user" element={<UserPageMain/>} />
         </Routes>
+            }
+            {showFooter && <Footer />}
+          </>
+        )}
+        
       </div>
     </Router>
   );
