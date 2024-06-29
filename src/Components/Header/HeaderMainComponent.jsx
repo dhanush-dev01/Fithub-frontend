@@ -1,9 +1,8 @@
 import React from 'react';
 import './Styles/HeaderMainComponent.css';
-import {AiOutlineUser} from 'react-icons/ai';
 import logo from '../../assets/Images/Logo-Light.png';
 
-const Header = () => {
+const Header = ({ isLandingPage }) => {
   return (
     <header className="header">
       <nav className="navbar-container">
@@ -11,7 +10,11 @@ const Header = () => {
           <a href="/"><img src={logo} alt="Logo" className="headerlogo" /></a>
         </div>
         <div className="HeaderProfile">
-        <a href="/profile"><AiOutlineUser size={40} className="navIcons" /></a>
+          {isLandingPage ? (
+            <button>Login</button>
+          ) : (
+            <button>Logout</button>
+          )}
         </div>
       </nav>
     </header>

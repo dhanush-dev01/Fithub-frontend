@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './Styles/userpage.module.css';
-import UserPage_leftcontainer from './userPage_leftcontainer';
 import UserPage_rightcontainer from './userPage_rightcontainer';
+import UserPage_leftcontainer from './userPage_leftcontainer';
 
 export default function UserPageMain() {
   const [isCollapsed, setIsCollapsed] = useState(false);
