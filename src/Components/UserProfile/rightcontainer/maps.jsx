@@ -144,16 +144,28 @@ export default function Maps() {
   };
 
   const saveActivity = async () => {
-    const customerId = localStorage.getItem('customerid'); // Retrieve customer ID from local storage
+    const customerId = localStorage.getItem('customerId'); // Retrieve customer ID from local storage
+
+    if (!customerId) {
+      console.error('Customer ID not found in local storage');
+      return;
+    }
+
     const activity = {
-      customerid: customerId,
-      date: new Date().toLocaleDateString(),
-      record: Math.floor(timer / 60) // converting timer to minutes
+      distance: (distance / 1000).toFixed(2), // converting distance to kilometers
+      time: `${Math.floor(timer / 3600)}h ${Math.floor((timer % 3600) / 60)}m ${timer % 60}s`,
+      goal: `${goal} ${goalUnit}`,
+      goalAchieved: goalAchieved,
+      date: new Date().toLocaleString() // using locale string for date formatting
     };
 
     try {
-      const response = await axios.post('http://localhost:5000/customer/appendRecords', null, {
-        params: activity,
+      const response = await axios.post('http://localhost:8080/customer/appendRecords', null, {
+        params: {
+          customerid: customerId,
+          date: new Date().toLocaleDateString(), // current date in dd-MM-yyyy format
+          record: JSON.stringify(activity)
+        },
         headers: {
           'Content-Type': 'application/json'
         }
