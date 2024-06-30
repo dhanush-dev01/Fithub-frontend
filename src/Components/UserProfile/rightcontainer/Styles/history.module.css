@@ -1,12 +1,7 @@
 .achieved {
-    background-color: green;
-    color: white;
-    text-align: center;
-  }
-  
-  .notAchieved {
-    background-color: red;
-    color: white;
-    text-align: center;
-  }
-  
+  background-color: #5df180 !important; /* Light green */
+}
+
+.notAchieved {
+  background-color: #ee1f30 !important; /* Light red */
+}
