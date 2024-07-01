@@ -28,8 +28,7 @@ const History = () => {
             console.error('Error parsing record:', parseError, 'Record:', item);
             return null;
           }
-        }).filter(activity => activity !== null); // Filter out any null values from parsing errors
-
+        }).filter(activity => activity !== null); 
         setData(activities);
         setFileExists(true);
       } catch (error) {
@@ -80,7 +79,7 @@ const History = () => {
                           key={subIndex} 
                           className={activity.goalAchieved ? 'table-success' : 'table-danger'}
                         >
-                          <td>{activity.date.split(',')[1].trim()}</td> {/* Extract and display the time part */}
+                          <td>{activity.date.split(',')[1].trim()}</td> 
                           <td>{activity.distance}</td>
                           <td>{activity.goal}</td>
                           <td>{activity.time}</td>
