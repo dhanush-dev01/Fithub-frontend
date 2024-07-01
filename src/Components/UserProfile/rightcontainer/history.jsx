@@ -5,7 +5,7 @@ import axios from 'axios';
 const History = () => {
   const [data, setData] = useState([]);
   const [fileExists, setFileExists] = useState(false);
-  const customerId = localStorage.getItem('customerId')
+  const customerId = localStorage.getItem('customerId');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,7 +53,7 @@ const History = () => {
       <h2 className="mb-4">Activity History</h2>
       {fileExists ? (
         <table className="table table-bordered table-hover">
-          <thead >
+          <thead>
             <tr>
               <th>Date</th>
               <th>Activities</th>
@@ -64,12 +64,13 @@ const History = () => {
               <tr key={index}>
                 <td>{date}</td>
                 <td>
-                  <table className="table ">
+                  <table className="table">
                     <thead>
-                      <tr  className={'table-primary'}>
+                      <tr className={'table-primary'}>
                         <th>Time</th>
                         <th>Distance</th>
                         <th>Goal</th>
+                        <th>Completion Time</th>
                         <th>Status</th>
                       </tr>
                     </thead>
@@ -79,9 +80,10 @@ const History = () => {
                           key={subIndex} 
                           className={activity.goalAchieved ? 'table-success' : 'table-danger'}
                         >
-                          <td>{activity.date.split(',')[1].trim()}</td> {/* Extract time part */}
+                          <td>{activity.date.split(',')[1].trim()}</td> {/* Extract and display the time part */}
                           <td>{activity.distance}</td>
                           <td>{activity.goal}</td>
+                          <td>{activity.time}</td>
                           <td>{activity.goalAchieved ? 'Great!' : 'Oops, start journey again'}</td>
                         </tr>
                       ))}
