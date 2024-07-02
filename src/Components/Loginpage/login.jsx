@@ -209,13 +209,14 @@ const Login = () => {
             }
             // navigate("/chat")
           navigate("/landingpage");
-          console.log(response);
+          console.log(response.data);
           console.log("response in line 128");
-          const customerId = response.data.customer.id;
+          const customerId = response.data.customerId;
+          const userType = response.data.customerType;        
           console.log("Customer ID:", customerId);
           localStorage.setItem("customerId", customerId);
-
-
+          localStorage.setItem("userType", userType);
+          console.log("User Type :" , userType);
         }
       } catch (error) {
         console.error("Error signing up:", error);
@@ -347,26 +348,16 @@ const Login = () => {
       );
  
       if (response.status === 200) {
-        const customerType = response.data.customerType;
-        // if (customerType === "leader") {
-        //   navigate("/leaderdashboard");
-        // } else {
-        //   navigate("/userdashboard");
-        // }
-        const customerId = response.data.customer.id;
+        
+        console.log(response.data);
+        const customerId = response.data.customerId;
+        const userType = response.data.customerType;        
         console.log("Customer ID:", customerId);
         localStorage.setItem("customerId", customerId);
-        await signInWithEmailAndPassword(auth, signInData.email, signInData.password)
-        .then(()=>{
-          // if (customerType === "leader") {
-          //   navigate("/leaderdashboard");
-          //   console.log(response);
-          // } else {
-          //   navigate("/user");
-          //   console.log(response);
-          // }
-            navigate("/user")
-        })
+        localStorage.setItem("userType", userType);
+        console.log("User Type :" , userType)
+        navigate("/user")
+       
         
       }
     } catch (error) {

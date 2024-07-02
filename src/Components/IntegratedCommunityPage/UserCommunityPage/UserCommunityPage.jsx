@@ -3,10 +3,12 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function UserCommunityPage() {
-  const [isInCommunity, setIsInCommunity] = useState();
+  const [isInCommunity, setIsInCommunity] = useState(false);
   const [communities, setCommunities] = useState([]);
   const [currentCommunity, setCurrentCommunity] = useState('');
   const [customerId, setCustomerId] = useState('');
+  const [communityMembers, setCommunityMembers] = useState([]);
+  const [communityLeader, setCommunityLeader] = useState(null);
 
   useEffect(() => {
     const fetchCommunityStatus = async () => {
@@ -23,9 +25,11 @@ export default function UserCommunityPage() {
 
           console.log("Community status response: ", response.data);
 
-          if (response.data != "Community not found") {
+          if (response.data !== "Community not found") {
             setCurrentCommunity(response.data);
             setIsInCommunity(true);
+            fetchCommunityMembers(response.data);
+            fetchCommunityLeader(response.data);
           } else {
             fetchAvailableCommunities(storedCustomerId);
           }
@@ -66,6 +70,36 @@ export default function UserCommunityPage() {
     return [];
   };
 
+  const fetchCommunityMembers = async (communityName) => {
+    try {
+      const response = await axios.get('http://localhost:8080/customer/getCustomersByCommunity', {
+        params: {
+          communityName,
+        },
+      });
+
+      console.log("Community members response: ", response.data);
+      setCommunityMembers(response.data);
+    } catch (error) {
+      console.error('Error fetching community members:', error);
+    }
+  };
+
+  const fetchCommunityLeader = async (communityName) => {
+    try {
+      const response = await axios.get('http://localhost:8080/customer/getLeaderOfCommunity', {
+        params: {
+          communityName,
+        },
+      });
+
+      console.log("Community leader response: ", response.data);
+      setCommunityLeader(response.data);
+    } catch (error) {
+      console.error('Error fetching community leader:', error);
+    }
+  };
+
   const handleJoinCommunity = async (community) => {
     try {
       const response = await axios.post('http://localhost:8080/customer/addToCommunity', null, {
@@ -78,6 +112,8 @@ export default function UserCommunityPage() {
       console.log(`Joined ${community}:`, response.data);
       setIsInCommunity(true);
       setCurrentCommunity(community);
+      fetchCommunityMembers(community);
+      fetchCommunityLeader(community);
     } catch (error) {
       console.error(`Error joining ${community}:`, error);
     }
@@ -89,6 +125,22 @@ export default function UserCommunityPage() {
         <div>
           <h3>Welcome to your Community Page!</h3>
           <p>You are already part of the {currentCommunity} community.</p>
+
+          {communityLeader && (
+            <div>
+              <h4>Community Leader:</h4>
+              <p>{communityLeader.firstName} {communityLeader.lastName} </p>
+            </div>
+          )}
+
+          <h4>Community Members:</h4>
+          <ul className="list-group">
+            {communityMembers.map((member, index) => (
+              <li key={index} className="list-group-item">
+                {member.firstName} {member.lastName}
+              </li>
+            ))}
+          </ul>
         </div>
       ) : (
         <div>

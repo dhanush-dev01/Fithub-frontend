@@ -7,9 +7,9 @@ import UserCommunity from '../IntegratedCommunityPage/LeaderCommunityPage/Leader
 import ProfilePage from '../Profile Page/ProfilePageMain';
 import UserCommunityPage from '../IntegratedCommunityPage/UserCommunityPage/UserCommunityPage';
 
-
-
 const UserPage_rightcontainer = ({ selectedItem }) => {
+  const userType = localStorage.getItem('userType');
+
   const renderComponent = () => {
     switch (selectedItem) {
       case 'dashboard':
@@ -19,11 +19,15 @@ const UserPage_rightcontainer = ({ selectedItem }) => {
       case 'history':
         return <History />;
       case 'community':
-        return <UserCommunity />;
+        if (userType === 'cust-leader') {
+          return <UserCommunity />;
+        } else if (userType === 'cust-normal') {
+          return <UserCommunityPage />;
+        } else {
+          return <Dashboard />; 
+        }
       case 'profile':
         return <ProfilePage />;
-      case 'community':
-        return <UserCommunityPage />;
       default:
         return <Dashboard />;
     }
