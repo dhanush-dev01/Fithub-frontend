@@ -1,9 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Styles/menu_items.module.css';
 import { FaTachometerAlt, FaMap, FaUser, FaBell, FaTable, FaGem, FaUserCircle } from 'react-icons/fa';
+import axios from 'axios';
 
 const Menu_items = ({ isCollapsed, onMenuItemClick }) => {
-  const [selectedItem, setSelectedItem] = useState('dashboard'); 
+  const [selectedItem, setSelectedItem] = useState('dashboard');
+  const [userName, setUserName] = useState('');
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
+  const fetchUserData = async () => {
+    const customerID =localStorage.getItem('customerId');
+
+    try {
+      const response = await axios.get('http://localhost:8080/customer/getCustomerById', {
+        params: {
+          id: customerID
+        }
+      });
+      setUserName(response.data.firstName);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+     
+    }
+  };
 
   const handleMenuItemClick = (item) => {
     setSelectedItem(item);
@@ -14,7 +36,7 @@ const Menu_items = ({ isCollapsed, onMenuItemClick }) => {
     <div className={styles.menu}>
       <div className={styles.profileItem} onClick={() => handleMenuItemClick('profile')}>
         <FaUserCircle className={styles.profileIcon} />
-        {!isCollapsed && <span className={styles.profileName}>User Name</span>}
+        {!isCollapsed && <span className={styles.profileName}>{userName}</span>}
       </div>
       <a
         className={`${styles.menuItem} ${selectedItem === 'dashboard' ? styles.selected : ''}`}
