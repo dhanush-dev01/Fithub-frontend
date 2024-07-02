@@ -23,7 +23,7 @@ export default function UserCommunityPage() {
 
           console.log("Community status response: ", response.data);
 
-          if (response.data ) {
+          if (response.data != "Community not found") {
             setCurrentCommunity(response.data);
             setIsInCommunity(true);
           } else {

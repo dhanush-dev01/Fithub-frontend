@@ -1,36 +1,57 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { PieChart, Pie, Cell, Legend } from 'recharts';
-import styled from 'styled-components';
-
-const data = [
-  { name: 'Completed', value: 13 },
-  { name: 'Remaining', value: 5 },
-];
+import axios from 'axios';
+import styles from '../rightcontainer/Styles/piechart.module.css'
 
 const COLORS = ['#0088FE', '#00C49F'];
 
-const Container = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const CenteredText = styled.div`
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 24px;
-  font-weight: bold;
-`;
-
 const HollowPieChart = () => {
+  const [data, setData] = useState([]);
+  const customerId = localStorage.getItem('customerId');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/customer/getRecords', {
+          params: { customerid: customerId }
+        });
+        console.log('API Response:', response.data);
+
+        const activities = response.data.map((item) => {
+          try {
+            const record = item.split(' --> ')[1];
+            if (record.startsWith('{') && record.endsWith('}')) {
+              return JSON.parse(record);
+            } else {
+              console.warn('Invalid record format:', item);
+              return null;
+            }
+          } catch (parseError) {
+            console.error('Error parsing record:', parseError, 'Record:', item);
+            return null;
+          }
+        }).filter(activity => activity !== null); // Filter out any null values from parsing errors
+
+        const achievedCount = activities.filter(activity => activity.goalAchieved).length;
+        const notAchievedCount = activities.length - achievedCount;
+
+        setData([
+          { name: 'Completed', value: achievedCount },
+          { name: 'Not Completed', value: notAchievedCount }
+        ]);
+      } catch (error) {
+        console.error('Error loading activities:', error);
+      }
+    };
+
+    fetchData();
+  }, [customerId]);
+
   const totalActivities = data.reduce((acc, item) => acc + item.value, 0);
-  const completedActivities = data[0].value;
+  const completedActivities = data.find(item => item.name === 'Completed')?.value || 0;
 
   return (
-    <Container>
+    <div className={styles.container}>
       <PieChart width={250} height={250}>
         <Pie
           data={data}
@@ -48,11 +69,11 @@ const HollowPieChart = () => {
         </Pie>
         <Legend />
       </PieChart>
-      <CenteredText>
+      <div className={styles.centeredText}>
         {completedActivities}/{totalActivities}
-      </CenteredText>
+      </div>
       <p>Target completed Past 7 days</p>
-    </Container>
+    </div>
   );
 };
 

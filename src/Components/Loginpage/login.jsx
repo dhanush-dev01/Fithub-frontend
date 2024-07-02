@@ -245,14 +245,14 @@ const Login = () => {
       if (response.status === 200) {
         // const auth = getAuth()
         try{
-            createUserWithEmailAndPassword(auth, signUpData.email, signUpData.password).then(async( res) =>{
+            createUserWithEmailAndPassword(auth, signUpData1.email, signUpData1.password).then(async( res) =>{
                 await updateProfile(res.user,{
-                    displayName: signUpData.firstName
+                    displayName: signUpData1.firstName
                 })
                 await setDoc(doc(db, "users", res.user.uid),{
                     uid: res.user.uid,
-                    displayName: signUpData.firstName,
-                    email: signUpData.email,
+                    displayName: signUpData1.firstName,
+                    email: signUpData1.email,
                     customerType: "leader"
                     // photoURL: downloadURL
                 })
@@ -264,7 +264,7 @@ const Login = () => {
                   groupName: "Global Group Chat",
                   users: arrayUnion({
                     uid: res.user.uid,
-                    displayName: signUpData.firstName,
+                    displayName: signUpData1.firstName,
                   }),
                   messages: [],
                   date: serverTimestamp(),
@@ -278,7 +278,7 @@ const Login = () => {
                   await updateDoc(groupChatRef, {
                     users: arrayUnion({
                       uid: res.user.uid,
-                      displayName: signUpData.firstName,
+                      displayName: signUpData1.firstName,
                     }),
                   });
                 } else {
