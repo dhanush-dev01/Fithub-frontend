@@ -211,7 +211,7 @@ const Login = () => {
           navigate("/landingpage");
           console.log(response);
           console.log("response in line 128");
-          const customerId = response.data.customer.id;
+          const customerId = response.data.customerId;
           console.log("Customer ID:", customerId);
           localStorage.setItem("customerId", customerId);
 
@@ -353,7 +353,7 @@ const Login = () => {
         // } else {
         //   navigate("/userdashboard");
         // }
-        const customerId = response.data.customer.id;
+        const customerId = response.data.customerId;
         console.log("Customer ID:", customerId);
         localStorage.setItem("customerId", customerId);
         await signInWithEmailAndPassword(auth, signInData.email, signInData.password)
