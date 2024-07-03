@@ -16,12 +16,20 @@ function CartItem({ item, updateQuantity, removeFromCart }) {
     }
   }, [item.quantity]);
 
+  const formatPrice = (price) => {
+    const [integerPart, decimalPart] = price.toFixed(2).split('.');
+    const lastThree = integerPart.slice(-3);
+    const otherNumbers = integerPart.slice(0, -3);
+    const formattedInteger = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + (otherNumbers ? "," : "") + lastThree;
+    return formattedInteger + '.' + decimalPart;
+  };
+
   return (
     <div className={`cart-item ${fadeOut ? 'fade-out' : ''}`}>
       <img src={item.image} alt={item.name} className="cart-item-image" />
       <div className="cart-item-details">
         <h4>{item.name}</h4>
-        <p>₹{(item.price * item.quantity).toFixed(2)}</p>
+        <p>₹{formatPrice(item.price * item.quantity)}</p>
         <div className="item-controls">
           <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>-</button>
           <span>{item.quantity}</span>

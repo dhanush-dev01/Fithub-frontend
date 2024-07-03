@@ -35,8 +35,8 @@ function CartPageMain() {
 
   return (
     <div className="App">
-      {/* <Navbar cartItems={cartItems} setIsCartOpen={setIsCartOpen} /> */}
-      <Header cartItems={cartItems} setIsCartOpen={setIsCartOpen} />
+      <Navbar cartItems={cartItems} setIsCartOpen={setIsCartOpen} />
+      {/* <Header cartItems={cartItems} setIsCartOpen={setIsCartOpen} /> */}
       <ProductListingPageMain addToCart={addToCart} />
       <Cart
         cartItems={cartItems}

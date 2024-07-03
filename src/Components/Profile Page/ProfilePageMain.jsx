@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './Styles/ProfilePageMain.css';
 import { FaUserCircle, FaShoppingCart, FaUsers, FaListAlt, FaUserFriends } from 'react-icons/fa';
 import defaultProfileImg from '../../assets/Images/user_149071.png';
@@ -10,8 +10,29 @@ import character5 from '../../assets/Images/character5.jpg';
 import character6 from '../../assets/Images/character6.jpg';
 import character7 from '../../assets/Images/character7.jpg';
 import character8 from '../../assets/Images/character8.jpg';
+import { AuthContext } from '../context/AuthContext';
+import { doc, onSnapshot } from '@firebase/firestore';
+import { db } from '../ChatModule/firebase';
 
 export default function ProfilePage() {
+
+  const [chats, setChats] = useState([]);
+  const { currentUser } = useContext(AuthContext);
+
+  useEffect(() => {
+    const getChats = () => {
+      const unsub = onSnapshot(doc(db, "userChats", currentUser.uid), (doc) => {
+        setChats(doc.data());
+      });
+
+      return () => {
+        unsub();
+      };
+    };
+
+    getChats();
+  },[currentUser.uid]);
+  
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [profileImg, setProfileImg] = useState(defaultProfileImg);
 
@@ -46,7 +67,7 @@ export default function ProfilePage() {
             <FaUserFriends className="ProfilePagecardIcon" />
             <h3>Friends</h3>
           </div>
-          <p>12</p>
+          <p>{chats && Object.entries(chats).length}</p>
         </div>
         <div className="ProfilePagecard cartSection">
           <div className="iconPlusName">

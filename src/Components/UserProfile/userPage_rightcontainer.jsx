@@ -6,6 +6,7 @@ import History from './rightcontainer/history';
 import UserCommunity from '../IntegratedCommunityPage/LeaderCommunityPage/LeaderCommunity';
 import ProfilePage from '../Profile Page/ProfilePageMain';
 import UserCommunityPage from '../IntegratedCommunityPage/UserCommunityPage/UserCommunityPage';
+import CartPageMain from '../CartPage/CartPageMain';
 
 
 
@@ -18,19 +19,22 @@ const UserPage_rightcontainer = ({ selectedItem }) => {
         return <Maps />;
       case 'history':
         return <History />;
-      case 'community':
-        return <UserCommunity />;
+      // case 'community':
+      //   return <UserCommunity />;
       case 'profile':
         return <ProfilePage />;
       case 'community':
         return <UserCommunityPage />;
+      case 'product':
+        return <CartPageMain/>
+
       default:
         return <Dashboard />;
     }
   };
 
   return (
-    <div className={styles.right_Main_container}>
+    <div className={`${styles.right_Main_container}`} style={{ overflow: selectedItem == "product" && "scroll"}} >
       {renderComponent()}
     </div>
   );

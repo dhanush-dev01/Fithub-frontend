@@ -8,7 +8,7 @@ const History = () => {
   useEffect(() => {
     const checkAndLoadData = async () => {
       try {
-        const activities = await import('../../../activities.json');
+        const activities = await import('');
         setData(activities.default);
         setFileExists(true);
       } catch (error) {
