@@ -24,7 +24,7 @@ export default function UserCommunityPage() {
           });
 
           console.log("Community status response: ", response.data);
-          localStorage.setItem("communityname",response.data)
+          localStorage.setItem("communityname", response.data);
 
           if (response.data !== "Community not found") {
             setCurrentCommunity(response.data);
@@ -32,7 +32,7 @@ export default function UserCommunityPage() {
             fetchCommunityMembers(response.data);
             fetchCommunityLeader(response.data);
           } else {
-            fetchAvailableCommunities(storedCustomerId);
+            fetchAvailableCommunities();
           }
         } else {
           console.error('No customerId found in localStorage.');
@@ -42,18 +42,12 @@ export default function UserCommunityPage() {
       }
     };
 
-    const fetchAvailableCommunities = async (customerId) => {
+    const fetchAvailableCommunities = async () => {
       try {
-        const response = await axios.post('http://localhost:8080/customer/addToCommunity', null, {
-          params: {
-            customerid: customerId,
-            community: 'we', 
-          },
-        });
-
+        const response = await axios.get('http://localhost:8080/customobj/getCommunity');
         console.log("Available communities response: ", response.data);
 
-        const availableCommunities = extractCommunities(response.data);
+        const availableCommunities = response.data.map(community => community.name);
         setCommunities(availableCommunities);
       } catch (error) {
         console.error('Error fetching communities:', error);
@@ -62,14 +56,6 @@ export default function UserCommunityPage() {
 
     fetchCommunityStatus();
   }, []);
-
-  const extractCommunities = (responseString) => {
-    const match = responseString.match(/Available communities are \[(.+?)\]/);
-    if (match) {
-      return match[1].split(', ').map(community => community.trim());
-    }
-    return [];
-  };
 
   const fetchCommunityMembers = async (communityName) => {
     try {
@@ -130,7 +116,7 @@ export default function UserCommunityPage() {
           {communityLeader && (
             <div>
               <h4>Community Leader:</h4>
-              <p>{communityLeader.firstName} {communityLeader.lastName} </p>
+              <p>{communityLeader.firstName} {communityLeader.lastName}</p>
             </div>
           )}
 

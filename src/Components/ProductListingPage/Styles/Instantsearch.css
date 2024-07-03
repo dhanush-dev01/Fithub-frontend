@@ -1,0 +1,56 @@
+
+  .hit {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .hit-image {
+    width: 100px; 
+    height: auto;
+    margin-right: 10px;
+  }
+  
+.ais-SearchBox-form {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .ais-SearchBox-input {
+    width: 300px; /* Adjust the width as needed */
+    height: 30px; /* Adjust the height as needed */
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .ais-SearchBox-submit, .ais-SearchBox-reset {
+    display: none; /* Hide the default buttons if not needed */
+  }
+  
+  /* Additional styling for hits */
+  .product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .product, .hit {
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 200px;
+    text-align: center;
+  }
+  
+  .product img, .hit img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .no-product-found {
+    text-align: center;
+    margin-top: 20px;
+  }
+  

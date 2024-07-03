@@ -1,0 +1,18 @@
+.profileinfo {
+  display: flex;
+  align-items: center;
+  padding: 10%;
+  border-bottom: 1px solid white;
+}
+
+.profileimg {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.userName {
+  color: white;
+  margin: 0;
+}
