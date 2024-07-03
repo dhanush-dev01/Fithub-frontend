@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import './Styles/leaderCommunity.css';
 import { setDoc, doc, serverTimestamp, updateDoc, arrayUnion, getDoc } from "firebase/firestore";
-import { AuthContext } from '../../context/AuthContext';
+
 import { db } from '../../ChatModule/firebase';
+import { AuthContext } from '../../context/AuthContext';
 
 export default function LeaderCommunity() {
   const [isFormVisible, setIsFormVisible] = useState(false);
@@ -37,7 +38,7 @@ export default function LeaderCommunity() {
   };
 
   const handleFormSubmit = async (e) => {
-  const handleFormSubmit = async (e) => {
+
     e.preventDefault();
     const newCommunity = { name: communityName, address, agenda, location, iconUrl };
 
@@ -57,9 +58,6 @@ export default function LeaderCommunity() {
       console.error('Error creating community:', error);
       setError('Failed to create community. Please try again.');
     }
-  };
-    const newCommunity = { name: communityName, location };
-    setCommunities([newCommunity]); // Ensures only one community can be created
     
     // const groupId = communityName
     // console.log(groupId);

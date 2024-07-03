@@ -1,17 +1,14 @@
-import {
-  setDoc,
-  doc,
-  serverTimestamp,
-  updateDoc,
-  arrayUnion,
-  getDoc,
-} from "firebase/firestore";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  updateProfile,
-} from "firebase/auth";
-import { auth, db, storage } from "../ChatModule/firebase";
+import React, { useState, useEffect } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
+import axios from "axios";
+
+import "./login.css";
+import "../commoncss/App.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { setDoc, doc, serverTimestamp, updateDoc, arrayUnion, getDoc } from "firebase/firestore";
+import {createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile} from "firebase/auth"
+import { auth, db, storage} from "../ChatModule/firebase"
 import JoggingAnimation from "../JoggingLoader/JoggingLoader";
 
 const Login = () => {
