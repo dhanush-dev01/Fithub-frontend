@@ -8,7 +8,7 @@ function Navbar({ cartItems, setIsCartOpen }) {
   return (
     <nav className="joggersCartNavbar">
       <div className="logo">
-          <a href="/"><img src={logo} alt="Logo" className="headerlogo"/></a>
+          <h3>JogHub Market</h3>
         </div>
       <div className="cart-container" onClick={() => setIsCartOpen(true)}>
         <CartIcon className="cart-icon" />

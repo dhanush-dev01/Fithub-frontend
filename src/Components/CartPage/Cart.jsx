@@ -13,14 +13,6 @@ function Cart({ cartItems, setIsCartOpen, updateQuantity, removeFromCart, isOpen
 
   const location = useLocation();
 
-  // useEffect(() => {
-  //   const urlParams = new URLSearchParams(location.search);
-  //   const sessionId = urlParams.get('session_id');
-  //   if (sessionId) {
-  //     handleSessionCheck(sessionId);
-  //   }
-  // }, [location.search]);
-
   const handleSessionCheck = async (sessionId) => {
     try {
       const response = await fetch(`http://localhost:8000/stripe-session/${sessionId}`);
@@ -91,9 +83,9 @@ function Cart({ cartItems, setIsCartOpen, updateQuantity, removeFromCart, isOpen
   };
 
   const total = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  const tax = total * 0.03;
-  const totalWithTax = total + tax;
-  const finalTotal = totalWithTax - discountAmount;
+  const discountedTotal = total - discountAmount;
+  const tax = discountedTotal * 0.03;
+  const finalTotal = discountedTotal + tax;
 
   const handlePayment = async () => {
     try {
@@ -119,6 +111,14 @@ function Cart({ cartItems, setIsCartOpen, updateQuantity, removeFromCart, isOpen
       console.error('Error:', error);
       alert('Payment error');
     }
+  };
+
+  const formatPrice = (price) => {
+    const [integerPart, decimalPart] = price.toFixed(2).split('.');
+    const lastThree = integerPart.slice(-3);
+    const otherNumbers = integerPart.slice(0, -3);
+    const formattedInteger = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + (otherNumbers ? "," : "") + lastThree;
+    return formattedInteger + '.' + decimalPart;
   };
 
   return (
@@ -158,15 +158,14 @@ function Cart({ cartItems, setIsCartOpen, updateQuantity, removeFromCart, isOpen
           {error && <p className="error-message">{error}</p>}
           {successMessage && <p className="success-message">{successMessage}</p>}
           <div className="cart-total">
-            <h3>Total: ₹{total.toFixed(2)}</h3>
-            <p>Tax (3%): ₹{tax.toFixed(2)}</p>
+            <h3>Total: ₹{formatPrice(total)}</h3>
             {discountAmount > 0 && (
               <p>
-                Discount ({couponName}): -₹{discountAmount.toFixed(2)}
+                Discount ({couponName}): -₹{formatPrice(discountAmount)}
               </p>
             )}
-            <h3>Total with Tax: ₹{totalWithTax.toFixed(2)}</h3>
-            <h3>Final Total: ₹{finalTotal.toFixed(2)}</h3>
+            <p>Tax (3%): ₹{formatPrice(tax)}</p>
+            <h3>Final Total: ₹{formatPrice(finalTotal)}</h3>
           </div>
           <button className="make-payment-button" onClick={handlePayment}>Make Payment</button>
         </>

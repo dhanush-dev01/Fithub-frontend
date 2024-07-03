@@ -17,11 +17,40 @@
 
 /* cartStyles.css */
 
+.ais-SearchBox-form {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.ais-SearchBox-input {
+  width: 300px; /* Adjust the width as needed */
+  height: 30px; /* Adjust the height as needed */
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.ais-SearchBox-submit, .ais-SearchBox-reset {
+  display: none; /* Hide the default buttons if not needed */
+}
+
+.ais-Hits-list{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+  margin-bottom: 150px;
+  justify-content: flex-start;
+}
+
+/* Additional styling for hits */
+
 .joggersCartNavbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #37373b; /* Custom color */
+  /* background-color: #37373b; Custom color */
   color: white;
   padding: 10px 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -34,6 +63,7 @@
 
 .cart-container {
   position: relative;
+  
   cursor: pointer;
 }
 
@@ -59,10 +89,32 @@
 .product-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 40px;
+  gap: 20px;
   margin-top: 20px;
   margin-bottom: 150px;
+  justify-content: flex-start;
+}
+
+.no-product-found h1{
+  color: white;
+  /* display: flex; */
   justify-content: center;
+  align-items: center;
+
+}
+
+.no-product-found {
+  text-align: center;
+  height: 100vh; /* Full viewport height, adjust as needed */
+  line-height: 100vh; /* Match the height of the div */
+  width: 100%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional, for visualization */
+}
+
+.no-product-found h2{
+  color: white;
+  justify-content: center;
+  align-items: center;
 }
 
 .product {

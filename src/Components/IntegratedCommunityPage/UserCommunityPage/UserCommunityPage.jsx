@@ -26,6 +26,7 @@ export default function UserCommunityPage() {
           if (response.data != "Community not found") {
             setCurrentCommunity(response.data);
             setIsInCommunity(true);
+            // fetchAvailableCommunities(storedCustomerId);
           } else {
             fetchAvailableCommunities(storedCustomerId);
           }

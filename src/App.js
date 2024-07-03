@@ -70,10 +70,11 @@ function App() {
           <Routes>
             <Route path="/profile" element={<ProfilePageMain />} />
             <Route path="/products" element={<ProductListingPageMain />} />
-            <Route path="/cart" element={<CartPageMain />} />
+            {/* <Route path="/cart" element={<CartPageMain />} /> */}
             <Route path="/about" element={<AboutUs />} />
             <Route path="/login" element={<Login />} />
             <Route path="/user" element={<UserPageMain/>} />
+            <Route path="/complete" element={<Receipt />} />
             <Route path="/chat" element={<ProtectedRoute><ChatHome /></ProtectedRoute>} />
             <Route path="/" element={<LandingPageMain />} />
           </Routes>
