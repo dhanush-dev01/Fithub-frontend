@@ -1,0 +1,49 @@
+.activityContainer {
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+ 
+  
+  .table {
+    margin-bottom: 0;
+  }
+  
+  .table thead th {
+    background-color: #007bff; 
+    color: white;
+
+  }
+  
+  .table .table-primary th {
+    background-color: #6c757d; 
+    color: white;
+  }
+  
+  .table-success {
+    background-color: #d4edda; 
+  }
+  
+  .table-danger {
+    background-color: #f8d7da; 
+  }
+  .table-bordered {
+    border-radius: 8px;
+
+}
+  
+  .table-hover tbody tr:hover {
+    background-color: #f1f1f1; 
+}
+  
+  .table td, .table th {
+    vertical-align: middle;
+    text-align: center; 
+  }
+  
+  p {
+    text-align: center;
+    color: #6c757d; 
+    font-size: 1.2em;
+  }
+  

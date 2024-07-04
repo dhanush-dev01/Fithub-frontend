@@ -1,12 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import './Styles/leaderCommunity.css';
+import logo from '../../../assets/Images/Joggingppl.jpg';
+
+import ChatHome from '../../ChatModule/ChatHome';
+import { FaCommentDots } from 'react-icons/fa';
 import { setDoc, doc, serverTimestamp, updateDoc, arrayUnion, getDoc } from "firebase/firestore";
 
 import { db } from '../../ChatModule/firebase';
 import { AuthContext } from '../../context/AuthContext';
 
-export default function LeaderCommunity() {
+export default function LeaderCommunity({ leaderId }) {
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [communityName, setCommunityName] = useState('');
   const [address, setAddress] = useState('');
@@ -16,16 +20,15 @@ export default function LeaderCommunity() {
   const [communities, setCommunities] = useState([]);
   const { currentUser } = useContext(AuthContext);
   const [error, setError] = useState('');
+  const [isChatActive, setIsChatActive] = useState(false);
 
   useEffect(() => {
-    // Fetch communities initially when component mounts
     fetchCommunities();
   }, []);
 
   const fetchCommunities = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/customobj/getCommunity');
-      // Assuming response.data is an array of communities
+      const response = await axios.get(`http://localhost:8080/customobj/getCommunity?leaderId=${leaderId}`);
       const filteredCommunities = response.data.filter((community, index) => index >= 3);
       setCommunities(filteredCommunities);
     } catch (error) {
@@ -40,19 +43,26 @@ export default function LeaderCommunity() {
   const handleFormSubmit = async (e) => {
 
     e.preventDefault();
+    
+    // Validate community name for spaces
+    if (communityName.includes(' ')) {
+      setError('Community name cannot contain spaces.');
+      return;
+    }
+
     const newCommunity = { name: communityName, address, agenda, location, iconUrl };
 
     try {
       const response = await axios.post('http://localhost:8080/customobj/addCommunity', newCommunity);
       if (response.status === 200) {
-        setCommunities([...communities, response.data]); // Add the created community to the state
+        setCommunities([...communities, response.data]);
         setCommunityName('');
         setAddress('');
         setAgenda('');
         setLocation('');
         setIconUrl('');
         setIsFormVisible(false);
-        window.location.reload();
+        window.location.reload(); // Consider better state management or refetching instead of full reload
       }
     } catch (error) {
       console.error('Error creating community:', error);
@@ -115,8 +125,14 @@ export default function LeaderCommunity() {
     }
   };
 
+  const toggleChat = () => {
+    setIsChatActive(!isChatActive);
+  };
+
   return (
     <div className="leader-community-container">
+      <h1 className='styledHeading'>Your Community!</h1>
+      {!isChatActive && !isFormVisible && communities.length === 0 && (
       <h1>Create a community to get started!</h1>
       {/* {console.log(currentUser.displayName)} */}
       {!isFormVisible && communities.length === 0 && (
@@ -124,79 +140,89 @@ export default function LeaderCommunity() {
           Create
         </button>
       )}
-      {isFormVisible && (
-        <form onSubmit={handleFormSubmit} className="community-form">
-          <div className="form-group">
-            <label>Community Name:</label>
-            <input
-              type="text"
-              value={communityName}
-              onChange={(e) => setCommunityName(e.target.value)}
-              required
-            />
+      {!isChatActive && (
+        <>
+          <div className="community-list">
+            {communities.map((community, index) => (
+              <div key={index} className="community-item">
+                <div>
+                  <img src={logo} alt="Logo" className="headerlogo" />
+                  <span className="community-chat-icon" onClick={toggleChat}><FaCommentDots /></span>
+                  <br />
+                  <span className="community-name">{community.name}</span>
+                  <br />
+                  <span className="community-address">{community.address}</span>
+                  <br />
+                  <span className="community-agenda">{community.agenda}</span>
+                  {/* <br /> */}
+                  {/* <span className="community-location">{community.location}</span> */}
+                </div>
+                <div>
+                  <button onClick={() => handleDeleteCommunity(community.name)} className="delete-Community-button">
+                    Delete
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
-          <div className="form-group">
-            <label>Address:</label>
-            <input
-              type="text"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label>Agenda:</label>
-            <input
-              type="text"
-              value={agenda}
-              onChange={(e) => setAgenda(e.target.value)}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label>Location:</label>
-            <input
-              type="text"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label>Icon URL:</label>
-            <input
-              type="text"
-              value={iconUrl}
-              onChange={(e) => setIconUrl(e.target.value)}
-              required
-            />
-          </div>
-          {error && <p className="error-message">{error}</p>}
-          <button type="submit" className="submit-Community-button">Create</button>
-        </form>
+          {isFormVisible && (
+            <form onSubmit={handleFormSubmit} className="community-form">
+              <div className="form-group">
+                <input
+                  type="text"
+                  value={communityName}
+                  onChange={(e) => setCommunityName(e.target.value)}
+                  placeholder="Enter community name"
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  placeholder="Enter address"
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  value={agenda}
+                  onChange={(e) => setAgenda(e.target.value)}
+                  placeholder="Enter agenda"
+                  required
+                />
+              </div>
+              {/* <div className="form-group">
+                <input
+                  type="text"
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                  placeholder="Enter location"
+                  required
+                />
+              </div> */}
+              {/* <div className="form-group">
+                <input
+                  type="text"
+                  value={iconUrl}
+                  onChange={(e) => setIconUrl(e.target.value)}
+                  placeholder="Enter icon URL"
+                  required
+                />
+              </div> */}
+              {error && <p className="error-message">{error}</p>}
+              <button type="submit" className="submit-Community-button">Create</button>
+            </form>
+          )}
+        </>
       )}
-      <div className="community-list">
-        {communities.map((community, index) => (
-          <div key={index} className="community-item">
-            <div>
-              <span className="community-name">{community.name}</span>
-              <br />
-              <span className="community-address">{community.address}</span>
-              <br />
-              <span className="community-agenda">{community.agenda}</span>
-              <br />
-              <span className="community-location">{community.location}</span>
-              <br />
-              <img src={community.iconUrl} alt="Icon" className="community-icon" />
-            </div>
-            <div>
-              <button onClick={() => handleDeleteCommunity(community.name)} className="delete-Community-button">
-                Delete
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
+      {isChatActive && (
+        <div className="chat-home-container">
+          <ChatHome />
+        </div>
+      )}
     </div>
   );
 }
