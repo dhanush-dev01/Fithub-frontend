@@ -27,6 +27,7 @@ const UploadProducts = () => {
         params: { customerid: customerId },
       });
       setCommunity(response.data);
+      console.log('Fetched community:', response.data);
     } catch (error) {
       console.error('Error fetching community:', error);
     }
@@ -52,21 +53,27 @@ const UploadProducts = () => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:8080/product/addProduct', product);
-      console.log(response.data);
+      console.log('Product added:', response.data);
       const sku = response.data.masterData.current.masterVariant.sku;
-      console.log(sku);
       localStorage.setItem('sku', sku);
 
       // Fetch the community name
       await fetchCommunity();
 
+      // Ensure community is set
+      if (!community) {
+        throw new Error('Community is not set');
+      }
+
       // Add product to the community
-      await axios.post('http://localhost:8080/productselection/addProductToCommunity', null, {
+      const addProductToCommunityResponse = await axios.post('http://localhost:8080/productselection/addProductToCommunity', null, {
         params: {
           community,
           sku,
         },
       });
+
+      console.log('Product added to community:', addProductToCommunityResponse.data);
 
       alert('Your product has been saved and will be visible only after the admin publishes your product.');
     } catch (error) {
