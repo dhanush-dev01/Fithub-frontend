@@ -41,6 +41,11 @@ a {
     text-decoration: none;
     color: #007BFF;
 }
+.styledHeading{
+    font-family: 'Lobster', cursive;
+    color: whitesmoke;
+
+}
 
 
 a:hover {

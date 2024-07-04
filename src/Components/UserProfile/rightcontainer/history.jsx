@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+import './Styles/history.css'; // Import the CSS file
 
 const History = () => {
   const [data, setData] = useState([]);
@@ -48,8 +49,8 @@ const History = () => {
   }, {});
 
   return (
-    <div className="container mt-5">
-      <h2 className="mb-4">Activity History</h2>
+    <div className="activityContainer mt-5">
+      <h2 className="styledHeading">Activity History</h2>
       {fileExists ? (
         <table className="table table-bordered table-hover">
           <thead>
