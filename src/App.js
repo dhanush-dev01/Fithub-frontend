@@ -17,6 +17,7 @@ import { AuthContext } from './Components/context/AuthContext';
 import ChatHome from './Components/ChatModule/ChatHome';
 import ChatLeader from './Components/chatdashboard_leader/chatleader';
 import Receipt from './Components/CartPage/CartReceipt';
+import UploadProducts from './Components/IntegratedCommunityPage/LeaderCommunityPage/UploadProducts';
  
 function App() {
   const [loading, setLoading] = useState(true);
@@ -75,12 +76,15 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/user" element={<UserPageMain/>} />
             <Route path="/complete" element={<Receipt />} />
+            <Route path="/upload" element={<UploadProducts />} />
             <Route path="/chat" element={<ProtectedRoute><ChatHome /></ProtectedRoute>} />
             <Route path="/" element={<LandingPageMain />} />
           </Routes>
+         
           {showFooter && window.location.pathname != "/complete" && <Footer />}
         </>
       )}
+     
     </div>
   );
 }

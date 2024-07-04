@@ -206,9 +206,11 @@ const Login = () => {
           console.log(response);
           console.log("response in line 128");
           const customerId = response.data.customerId;
-          // const customerId = response.data.customerId;
+          const userType = response.data.customerType;        
           console.log("Customer ID:", customerId);
           localStorage.setItem("customerId", customerId);
+          localStorage.setItem("userType", userType);
+          console.log("User Type :" , userType);
         }
       } catch (error) {
         console.error("Error signing up:", error);
@@ -347,21 +349,15 @@ const Login = () => {
       );
 
       if (response.status === 200) {
-        const customerType = response.data.customerType;
-        // if (customerType === "leader") {
-        //   navigate("/leaderdashboard");
-        // } else {
-        //   navigate("/userdashboard");
-        // }
+        
+        console.log(response.data);
         const customerId = response.data.customerId;
-        // const customerId = response.data.customerId;
+        const userType = response.data.customerType;        
         console.log("Customer ID:", customerId);
         localStorage.setItem("customerId", customerId);
-        await signInWithEmailAndPassword(
-          auth,
-          signInData.email,
-          signInData.password
-        ).then(() => {
+        localStorage.setItem("userType", userType);
+        await signInWithEmailAndPassword(auth, signInData.email, signInData.password)
+        .then(()=>{
           // if (customerType === "leader") {
           //   navigate("/leaderdashboard");
           //   console.log(response);
@@ -369,8 +365,11 @@ const Login = () => {
           //   navigate("/user");
           //   console.log(response);
           // }
-          navigate("/user");
-        });
+          
+        console.log("User Type :" , userType);
+            navigate("/user")
+        })
+        
       }
     } catch (error) {
       console.error("Error signing in:", error);

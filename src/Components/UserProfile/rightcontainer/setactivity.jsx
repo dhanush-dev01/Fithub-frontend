@@ -45,7 +45,7 @@ const SetActivity = ({ onClose, onSave }) => {
                 onChange={(e) => setGoal(e.target.value)}
               />
               <select value={unit} onChange={(e) => setUnit(e.target.value)}>
-                <option value="m">meters</option>
+                <option value="mtr">meters</option>
                 <option value="km">km</option>
               </select>
             </div>
