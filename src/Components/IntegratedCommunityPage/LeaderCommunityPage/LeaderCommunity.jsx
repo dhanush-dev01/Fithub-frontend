@@ -134,7 +134,7 @@ export default function LeaderCommunity({ leaderId }) {
       <h1 className='styledHeading'>Your Community!</h1>
       {!isChatActive && !isFormVisible && communities.length === 0 && (
       <h1>Create a community to get started!</h1>
-      {/* {console.log(currentUser.displayName)} */}
+      )}
       {!isFormVisible && communities.length === 0 && (
         <button className="create-Community-button" onClick={handleCreateCommunityClick}>
           Create
@@ -149,7 +149,7 @@ export default function LeaderCommunity({ leaderId }) {
                   <img src={logo} alt="Logo" className="headerlogo" />
                   <span className="community-chat-icon" onClick={toggleChat}><FaCommentDots /></span>
                   <br />
-                  <span className="community-name">{community.name}</span>
+                  <span className="community-name">{community.name} Community</span>
                   <br />
                   <span className="community-address">{community.address}</span>
                   <br />
