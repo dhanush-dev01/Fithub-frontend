@@ -69,7 +69,6 @@ export default function Maps() {
   }, [tracking, paused]);
 
   useEffect(() => {
-    // Check for goal achievement on distance or time change
     const checkGoalAchievement = () => {
       if (goalType === 'distance' && !goalAchieved && goal !== null) {
         if (distance >= goal * (goalUnit === 'km' ? 1000 : 1)) {
@@ -120,6 +119,7 @@ export default function Maps() {
     setPaused(false);
     setStartDisabled(true);
     setStopDisabled(false);
+    localStorage.removeItem('activityData'); // Clear any previous saved data
   };
 
   const handleStop = async () => {
@@ -128,11 +128,36 @@ export default function Maps() {
     setStartDisabled(false);
     setStopDisabled(true);
 
-    // Save activity to server
     await saveActivity();
+    localStorage.removeItem('activityData'); // Clear saved data on stop
   };
 
   const handlePauseResume = () => {
+    if (paused) {
+      // Resume: Load data from local storage
+      const savedData = JSON.parse(localStorage.getItem('activityData'));
+      if (savedData) {
+        setPath(savedData.path);
+        setDistance(savedData.distance);
+        setTimer(savedData.timer);
+        setGoal(savedData.goal);
+        setGoalType(savedData.goalType);
+        setGoalUnit(savedData.goalUnit);
+        setGoalAchieved(savedData.goalAchieved);
+      }
+    } else {
+      // Pause: Save data to local storage
+      const activityData = {
+        path,
+        distance,
+        timer,
+        goal,
+        goalType,
+        goalUnit,
+        goalAchieved
+      };
+      localStorage.setItem('activityData', JSON.stringify(activityData));
+    }
     setPaused(!paused);
   };
 
@@ -140,11 +165,11 @@ export default function Maps() {
     setGoal(goalData.goal);
     setGoalType(goalData.unit === 'h' || goalData.unit === 'm' ? 'time' : 'distance');
     setGoalUnit(goalData.unit);
-    setGoalAchieved(false); // Clear any existing goal achieved status
+    setGoalAchieved(false);
   };
 
   const saveActivity = async () => {
-    const customerId = localStorage.getItem('customerId'); // Retrieve customer ID from local storage
+    const customerId = localStorage.getItem('customerId');
 
     if (!customerId) {
       console.error('Customer ID not found in local storage');
@@ -156,7 +181,7 @@ export default function Maps() {
       time: `${Math.floor(timer / 3600)}h ${Math.floor((timer % 3600) / 60)}m ${timer % 60}s`,
       goal: `${goal} ${goalUnit}`,
       goalAchieved: goalAchieved,
-      date: new Date().toLocaleString() // using locale string for date formatting
+      date: new Date().toLocaleString()
     };
 
     try {

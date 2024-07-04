@@ -105,14 +105,15 @@ export default function ProfilePage() {
           <div className="iconPlusName ">
             <FaUserFriends className="ProfilePagecardIcon" />
             <h3>Profile Info</h3>
-            <button onClick={handleUpdateButtonClick}>Update profile info</button>
+           
           </div>
-          <p>
+          <p className="Personal_info">
             Age: {profiledata.age} <br />
             Weight: {profiledata.weight}<br />
             Height: {profiledata.height}<br />
             Gender: {profiledata.gender} <br />
           </p>
+          <button type="button" class="btn btn-dark" onClick={handleUpdateButtonClick}>Update profile info</button>
         </div>
         {isUpdateFormVisible && (
           <ProfileData

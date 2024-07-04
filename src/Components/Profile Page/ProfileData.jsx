@@ -46,8 +46,8 @@ const ProfileData = ({ onUpdateProfile, onClose }) => {
   
 
   return (
-    <div className="overlay">
-      <div className="popup">
+    <div className="modalOverlay-1">
+      <div className="modalContent">
         <button className="closeButton" onClick={onClose}>×</button>
         <h2>Update Customer Details</h2>
         <form onSubmit={handleSubmit}>
@@ -99,7 +99,7 @@ const ProfileData = ({ onUpdateProfile, onClose }) => {
             </select>
           </label>
           <br />
-          <button type="submit">Update Details</button>
+          <button type="submit" class="btn btn-success">Update Details</button>
         </form>
       </div>
     </div>
