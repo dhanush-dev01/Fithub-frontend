@@ -306,12 +306,9 @@ const Login = () => {
                 });
 
                 // setLoading(false);
-                
+                navigate("/login")
+                alert("You have successfully signed up please login");
               })
-
-              window.location = "/login"
-              alert("You have successfully signed up please login");
-              
               
             }
 
@@ -452,7 +449,7 @@ const Login = () => {
             }
             
             // window.location = "/login"
-            // window.history.replaceState(null, null, window.location.pathname);
+            window.history.replaceState(null, null, window.location.pathname);
           } else {
             alert("Payment verification failed");
           }
