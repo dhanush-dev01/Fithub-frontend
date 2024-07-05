@@ -6,9 +6,10 @@
 }
 
 .main-container {
-    height: 100vh;
+    height: 70vh;
     width: 100%;
 	font-family: 'Montserrat', sans-serif;
+
 	
 	
 }
@@ -24,6 +25,7 @@
     z-index: -1;
 }
 .loginh1 {
+	
 	font-weight: bold;
 	margin: 0;
 	font-size: 20px;
@@ -54,6 +56,7 @@ a {
 }
 
 .loginc {
+	
 	border-radius: 5px;
     border: none;
 	background-color: #3b2c29;
@@ -108,8 +111,8 @@ a {
 
 	background-color: transparent;
 	position: fixed;
-    top: 10%;
-    left: 5%;
+    top: 18%;
+    left: 20%;
 	overflow: hidden;
 	width: 768px;
 	max-width: 100%;

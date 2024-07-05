@@ -55,6 +55,7 @@ const Dashboard = () => {
 
   return (
     <div className={styles.dashboard}>
+      <h2 className='styledHeading'>User Dashboard</h2>
       <div className={styles.Quotes} style={quoteStyle}>
         {quotes[currentQuoteIndex]}
       </div>

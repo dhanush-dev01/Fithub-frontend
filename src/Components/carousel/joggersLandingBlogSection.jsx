@@ -2,11 +2,13 @@ import React, { useCallback, useEffect, useState, useRef } from "react";
 import { client } from "../../client";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import "./joggersLandingBlogSection.css";
+import Footer from '../Footer/FooterMain';
 
 export default function JoggersLandingBlogSection() {
   const [isBlogLoading, setIsBlogLoading] = useState(false);
   const [blogPosts, setBlogPosts] = useState([]);
   const postsRef = useRef([]);
+  const footerRef = useRef(null);
 
   const cleanUpBlogPosts = (rawdata) => {
     const cleanPosts = rawdata.map((post) => {
@@ -77,6 +79,28 @@ export default function JoggersLandingBlogSection() {
     };
   }, [blogPosts]);
 
+  useEffect(() => {
+    const footerObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          footerRef.current.classList.add('visible');
+        } else {
+          footerRef.current.classList.remove('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    if (footerRef.current) {
+      footerObserver.observe(footerRef.current);
+    }
+
+    return () => {
+      if (footerRef.current) {
+        footerObserver.unobserve(footerRef.current);
+      }
+    };
+  }, [blogPosts]);
+
   return (
     <div className="joggersLandingBlogSection-container">
       {blogPosts.map((item, index) => {
@@ -97,6 +121,7 @@ export default function JoggersLandingBlogSection() {
               <div className="joggersLandingBlogSection-contentWrap">
                 <div className="joggersLandingBlogSection-text">
                   <h2 className="joggersLandingBlogSection-title">{item.postTitle}</h2>
+                  <hr className="horRule" />
                   <div className="joggersLandingBlogSection-description">
                     {documentToReactComponents(item.postDescription)}
                   </div>
@@ -106,6 +131,9 @@ export default function JoggersLandingBlogSection() {
           </React.Fragment>
         );
       })}
+      <div ref={footerRef} className="footer-container">
+        <Footer />
+      </div>
     </div>
   );
 }

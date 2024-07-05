@@ -83,9 +83,10 @@ const UploadProducts = () => {
 
   return (
     <div className={styles.formContainer}>
-      <h3 className={styles.heading}>Add Product to your Community</h3>
+      <h3  className="styledHeading ">Add Product to your Community</h3>
       <form onSubmit={handleSubmit} className={styles.form}>
-        <div>
+        <div className="twoFormInputs">
+        
           <label className={styles.label}>
             Name:
             <input
@@ -97,8 +98,8 @@ const UploadProducts = () => {
               required
             />
           </label>
-        </div>
-        <div>
+        
+        
           <label className={styles.label}>
             Price (INR):
             <input
@@ -110,8 +111,9 @@ const UploadProducts = () => {
               required
             />
           </label>
+        
         </div>
-        <div>
+        <div className="twoFormInputs">
           <label className={styles.label}>
             Image URL:
             <input
@@ -123,8 +125,6 @@ const UploadProducts = () => {
               required
             />
           </label>
-        </div>
-        <div>
           <label className={styles.label}>
             Description:
             <textarea
@@ -136,7 +136,7 @@ const UploadProducts = () => {
             />
           </label>
         </div>
-        <div>
+        <div className="twoFormInputs">
           <label className={styles.label}>
             Category:
             <select
@@ -151,8 +151,6 @@ const UploadProducts = () => {
               <option value="joghub">Joghub</option>
             </select>
           </label>
-        </div>
-        <div>
           <label className={styles.label}>
             Product Type:
             <select

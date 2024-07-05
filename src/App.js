@@ -9,7 +9,6 @@ import Header from './Components/Header/HeaderMainComponent';
 import AboutUs from './Components/AboutUsPage/AboutUs';
 import JoggingLoader from './Components/JoggingLoader/JoggingLoader';
 import "./common.css"
-import Footer from './Components/Footer/FooterMain';
 import UserPageMain from './Components/UserProfile/userPage';
 // import Chat from './Components/Chat-components/chat';
 // import ChatLogin from './Components/Chat-components/ChatLogin';
@@ -21,7 +20,6 @@ import UploadProducts from './Components/IntegratedCommunityPage/LeaderCommunity
  
 function App() {
   const [loading, setLoading] = useState(true);
-  const [showFooter, setShowFooter] = useState(false);
   const location = useLocation();
 
 
@@ -44,11 +42,7 @@ function App() {
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
  
-      if (scrollTop + windowHeight >= documentHeight - 100) {
-        setShowFooter(true);
-      } else {
-        setShowFooter(false);
-      }
+      
     };
  
     window.addEventListener('scroll', handleScroll);
@@ -81,7 +75,6 @@ function App() {
             <Route path="/" element={<LandingPageMain />} />
           </Routes>
          
-          {showFooter && window.location.pathname != "/complete" && <Footer />}
         </>
       )}
      
@@ -93,7 +86,7 @@ function AppWrapper() {
   return (
     <Router>
       <App />
-    
+
     </Router>
   );
 }

@@ -97,8 +97,19 @@
 
 /* Visible state for all items */
 .joggersLandingBlogSection-postWrap.visible .joggersLandingBlogSection-title,
-.joggersLandingBlogSection-postWrap.visible .joggersLandingBlogSection-description {
+.joggersLandingBlogSection-postWrap.visible .joggersLandingBlogSection-description  {
   opacity: 1;
   transform: translateX(0);
+}
+.footer-container {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.footer-container.visible {
+  opacity: 1;
+}
+.horRule{
+  color: whitesmoke;
 }
 

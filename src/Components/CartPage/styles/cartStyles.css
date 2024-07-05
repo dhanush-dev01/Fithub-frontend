@@ -17,10 +17,24 @@
 
 /* cartStyles.css */
 
+@keyframes easeIn {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
 .ais-SearchBox-form {
   margin-top: 30px;
   display: flex;
   justify-content: center;
+  animation: easeIn 0.7s forwards;
+
 }
 
 .ais-SearchBox-input {
@@ -29,6 +43,8 @@
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  animation: easeIn 0.7s forwards;
+
 }
 
 .ais-SearchBox-submit, .ais-SearchBox-reset {
@@ -42,11 +58,15 @@
   margin-top: 20px;
   margin-bottom: 150px;
   justify-content: flex-start;
+  animation: easeIn 0.7s forwards;
+
 }
 
 /* Additional styling for hits */
 
 .joggersCartNavbar {
+  border: 1px solid whitesmoke;
+  border-radius: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -55,6 +75,8 @@
   padding: 10px 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   font-family: inherit; /* Inherit font from global styles */
+  animation: easeIn 0.7s forwards;
+
 }
 
 .joggersCartNavbar h1 {
@@ -63,7 +85,6 @@
 
 .cart-container {
   position: relative;
-  
   cursor: pointer;
 }
 
@@ -93,6 +114,7 @@
   margin-top: 20px;
   margin-bottom: 150px;
   justify-content: flex-start;
+  overflow-x: hidden;
 }
 
 .no-product-found h1{

@@ -1,12 +1,27 @@
 import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './Styles/HeaderMainComponent.css';
 import { AiOutlineUser } from "react-icons/ai";
 import logo from '../../assets/Images/Logo-Light.png';
 import { ReactComponent as CartIcon } from "../../cart-icon.svg";
 
-const Header = ({cartItems, setIsCartOpen, isLandingPage }) => {
+const Header = ({ cartItems, setIsCartOpen, isLandingPage }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const itemCount =
     cartItems && cartItems.reduce((acc, item) => acc + item.quantity, 0);
+
+  const handleLoginClick = () => {
+    navigate('/login');
+  };
+
+  const handleLogoutClick = () => {
+    // Implement your logout logic here
+  };
+
+  // Check if the current path is the login page
+  const isLoginPage = location.pathname === '/login';
+
   return (
     <header className="header">
       <nav className="navbar-container">
@@ -16,19 +31,21 @@ const Header = ({cartItems, setIsCartOpen, isLandingPage }) => {
           </a>
         </div>
         <div className="HeaderProfile">
-          {isLandingPage ? (
-            <button>Login</button>
-          ) : (
-            <button>Logout</button>
+          {!isLoginPage && (
+            <>
+              {isLandingPage ? (
+                <button onClick={handleLoginClick}>Login</button>
+              ) : (
+                <button onClick={handleLogoutClick}>Logout</button>
+              )}
+            </>
           )}
-          {/* Jeevan jolgar please condition add madu --> Dhanush  */}
-          {/* <a href="/profile">
-            <AiOutlineUser size={40} className="navIcons" />
-          </a> */}
-          {window.location.pathname == "/cart" && <div className="cart-container" onClick={() => setIsCartOpen(true)}>
-            <CartIcon className="cart-icon" />
-            {itemCount > 0 && <span className="cart-count">{itemCount}</span>}
-        </div>}
+          {window.location.pathname === "/cart" && (
+            <div className="cart-container" onClick={() => setIsCartOpen(true)}>
+              <CartIcon className="cart-icon" />
+              {itemCount > 0 && <span className="cart-count">{itemCount}</span>}
+            </div>
+          )}
         </div>
       </nav>
     </header>

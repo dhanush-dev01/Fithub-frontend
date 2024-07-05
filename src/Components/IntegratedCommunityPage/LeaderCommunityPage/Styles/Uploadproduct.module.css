@@ -9,6 +9,8 @@
   }
 }
 .formContainer {
+  animation: easeIn 0.7s forwards;
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -26,7 +28,7 @@
   
   .form {
     height: 50vh;
-width: 60%;
+width: 96%;
     display: flex;
     flex-direction: column;
    
@@ -35,14 +37,20 @@ width: 60%;
   
   .label {
     color: white;
+  animation: easeIn 0.7s forwards;
+
   }
   
   .input,
   .select,
   .textarea {
     color: black;
-    border-radius: 4px;
-    width: 100%;
+    border-radius: 8px;
+    width: 80%;
+    margin: 1%;
+  animation: easeIn 0.7s forwards;
+
+  
   }
   option{
     background-color: rgb(103, 93, 93);
@@ -62,12 +70,18 @@ width: 60%;
     padding: 2%;
     font-size: 14;
     margin: 3%;
-    margin-left: 40%;
+    margin-left:25%;
     align-items: center;
     width: 50%;
+  animation: easeIn 0.7s forwards;
+
   }
   
   .button:hover {
     background-color: #21a1f1;
+  }
+  .twoFormInputs{
+    display: flex;
+    flex-direction: row;
   }
   
