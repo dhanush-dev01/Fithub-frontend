@@ -170,6 +170,8 @@ const Login = () => {
                 },
               });
 
+              window.location = "/login"
+              alert("You have successfully signed up please login");
               // navigate("/chat")
               
               
@@ -210,9 +212,7 @@ const Login = () => {
           localStorage.setItem("customerId", customerId);
           localStorage.setItem("userType", userType);
           console.log("User Type :" , userType);
-          
-          window.location = "/login"
-          alert("You have successfully signed up please login");
+      
           
           // navigate("/chat")
           // navigate("/landingpage");
@@ -308,6 +308,9 @@ const Login = () => {
                 // setLoading(false);
                 
               })
+
+              window.location = "/login"
+              alert("You have successfully signed up please login");
               
               
             }
@@ -448,7 +451,7 @@ const Login = () => {
               localStorage.removeItem("formData"); // Clear stored data
             }
             
-            window.location = "/login"
+            // window.location = "/login"
             // window.history.replaceState(null, null, window.location.pathname);
           } else {
             alert("Payment verification failed");
