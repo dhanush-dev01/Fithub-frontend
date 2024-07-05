@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './Styles/HeaderMainComponent.css';
 import { AiOutlineUser } from "react-icons/ai";
@@ -11,6 +11,7 @@ import { auth } from '../ChatModule/firebase';
 const Header = ({ cartItems, setIsCartOpen, isLandingPage }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [customerId, setCustomerId] = useState(null)
   const itemCount =
     cartItems && cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
@@ -24,6 +25,15 @@ const Header = ({ cartItems, setIsCartOpen, isLandingPage }) => {
     localStorage.clear()
     navigate("/")
   };
+
+  const goToProfile = () =>{
+    navigate("/user")
+  }
+
+  useEffect(() =>{
+    let customerId = localStorage.getItem("customerId")
+    setCustomerId(customerId)
+  })
 
   // Check if the current path is the login page
   const isLoginPage = location.pathname === '/login';
@@ -40,6 +50,7 @@ const Header = ({ cartItems, setIsCartOpen, isLandingPage }) => {
           {!isLoginPage && (
             <>
               {isLandingPage ? (
+                customerId ? <img src='./Images/profileIcon.png' alt='profile' style={{cursor:"pointer"}} onClick={goToProfile} height={50}/> :
                 <button onClick={handleLoginClick}>Login</button>
               ) : (
                 <button onClick={handleLogoutClick}>Logout</button>
