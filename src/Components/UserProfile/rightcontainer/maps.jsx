@@ -204,7 +204,7 @@ export default function Maps() {
   return (
     <div>
       {location && (
-        <MapContainer center={[location.lat, location.lng]} zoom={15} style={{ height: '400px', width: '100%', position: 'relative' }}>
+        <MapContainer center={[location.lat, location.lng]} zoom={15} style={{ height: '70vh', width: '50%', position: 'relative', marginLeft: '30px',boxShadow:'0px 0px 20px 0px black' }}>
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
@@ -218,18 +218,19 @@ export default function Maps() {
           <RecenterButton location={location} />
         </MapContainer>
       )}
-      <div className={styles.infoContainer}>
-        <button onClick={handleStart} disabled={startDisabled} style={{ marginRight: '10px' }}>Start</button>
-        <button onClick={handleStop} disabled={stopDisabled}>Stop</button>
+    <div className={styles.infoContainer}>
+        <button className={styles.mapsbutton1} onClick={handleStart} disabled={startDisabled} style={{ marginRight: '10px' }}>Start</button>
+        <button className={styles.mapsbutton2} onClick={handleStop} disabled={stopDisabled}>Stop</button>
         {tracking && (
-          <button onClick={handlePauseResume} style={{ marginLeft: '10px' }}>
+          <button className={styles.mapsbutton4} onClick={handlePauseResume} style={{ marginLeft: '10px' }}>
             {paused ? 'Resume' : 'Pause'}
           </button>
         )}
-        <button onClick={() => setShowModal(true)} style={{ marginLeft: '10px' }}>Set Activity</button>
+        <button className={styles.mapsbutton3} onClick={() => setShowModal(true)} style={{ marginLeft: '10px' }}>Set Activity</button>
       </div>
-      <p>Distance covered: {(distance / 1000).toFixed(2)} km</p>
-      <p>Time elapsed: {Math.floor(timer / 3600)}h {Math.floor((timer % 3600) / 60)}m {timer % 60}s</p>
+      <div className={styles.distance} >{(distance / 1000).toFixed(2)} <span>km</span><p>Distance covered</p></div>
+      
+      <div className={styles.time}>{Math.floor(timer / 3600)}h {Math.floor((timer % 3600) / 60)}m {timer % 60}s <p>Time elapsed</p></div>
       {goal && <p>Goal: {goal} {goalUnit}</p>}
       {goalAchieved && (
         <div className={styles.successMessage}>

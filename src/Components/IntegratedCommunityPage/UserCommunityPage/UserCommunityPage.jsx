@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './styles/UCommunity.css'; // Import custom CSS file
+import './Styles/UCommunity.css'; // Import custom CSS file
+import ChatHome from '../../ChatModule/ChatHome';
 
 export default function UserCommunityPage() {
   const [isInCommunity, setIsInCommunity] = useState(false);
@@ -10,6 +11,7 @@ export default function UserCommunityPage() {
   const [customerId, setCustomerId] = useState('');
   const [communityMembers, setCommunityMembers] = useState([]);
   const [communityLeader, setCommunityLeader] = useState(null);
+  const [isChatActive, setIsChatActive] = useState(false);
 
   useEffect(() => {
     const fetchCommunityStatus = async () => {
@@ -72,6 +74,10 @@ export default function UserCommunityPage() {
       console.error('Error fetching community members:', error);
     }
   };
+  const toggleChat = () => {
+    setIsChatActive(!isChatActive);
+  };
+
 
   const fetchCommunityLeader = async (communityName) => {
     try {
@@ -111,24 +117,34 @@ export default function UserCommunityPage() {
     <div className="user-Community-Container">
       {isInCommunity ? (
         <div>
-          <h3 className="community-header styledHeading">Welcome to your Community Page!</h3>
-          <p className="community-status styledHeading">You are already part of the {currentCommunity} community.</p>
 
-          {communityLeader && (
-            <div>
-              <h4 className='styledHeading'>Community Leader</h4>
-              <p>{communityLeader.firstName} {communityLeader.lastName}</p>
-            </div>
-          )}
+            <h3 className="community-header styledHeading">Welcome to your Community Page!</h3>
+            <p className="community-status styledHeading">You are already part of the  <span className="bold-large"> {currentCommunity} </span>community.</p>
 
-          <h4 className="community-members styledHeading">Community Members</h4>
-          <ul className="community-members-list">
-            {communityMembers.map((member, index) => (
-              <li key={index} className="community-member-item">
-                {member.firstName} {member.lastName}
-              </li>
-            ))}
-          </ul>
+        <div className="community-and-chat">
+          <div className="community-members-container">
+          
+            {communityLeader && (
+              <div>
+                <h4 className="styledHeading">Community Leader</h4>
+                <p className="bold-large">{communityLeader.firstName} {communityLeader.lastName}</p>
+              </div>
+            )}
+            <h4 className="community-members styledHeading">Community Members</h4>
+            <ul className="community-members-list">
+              {communityMembers.map((member, index) => (
+                <li key={index} className="community-member-item">
+                  {member.firstName} {member.lastName}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="chat-home-container">
+            <ChatHome />
+          </div>
+
+
+        </div>
         </div>
       ) : (
         <div>

@@ -11,6 +11,14 @@
     text-align: center;
     margin-bottom: 20px;
   }
+  .community-and-chat{
+    display: flex;
+  }
+  .bold-large {
+    font-weight: bold;
+    font-size: 1.5em;
+  }
+  
   
   .community-status {
     margin-bottom: 20px;
