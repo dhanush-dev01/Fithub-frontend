@@ -71,7 +71,7 @@ const Login = () => {
       try {
         // Store form data before redirecting
         localStorage.setItem("formData", JSON.stringify(signUpData));
-        const response = await fetch("http://localhost:8000/leaderLogin", {
+        const response = await fetch("https://mach-nodejs.vercel.app/leaderLogin", {
           method: "POST",
         });
         const data = await response.json();
@@ -102,7 +102,7 @@ const Login = () => {
     if (formErrors.length === 0) {
       try {
         const response = await axios.post(
-          "http://localhost:8080/customer/signUpCustomer",
+          "https://machjava.azurewebsites.net/customer/signUpCustomer",
           {
             customerType: signUpData.customerType,
             firstName: signUpData.firstName,
@@ -171,7 +171,8 @@ const Login = () => {
               });
 
               // navigate("/chat")
-              navigate("/user");
+              
+              
             });
 
             // const storageRef = ref(storage, "");
@@ -201,8 +202,6 @@ const Login = () => {
           } catch (error) {
             console.log(error);
           }
-          // navigate("/chat")
-          // navigate("/landingpage");
           console.log(response);
           console.log("response in line 128");
           const customerId = response.data.customerId;
@@ -211,6 +210,13 @@ const Login = () => {
           localStorage.setItem("customerId", customerId);
           localStorage.setItem("userType", userType);
           console.log("User Type :" , userType);
+          
+          window.location = "/login"
+          alert("You have successfully signed up please login");
+          
+          // navigate("/chat")
+          // navigate("/landingpage");
+          
         }
       } catch (error) {
         console.error("Error signing up:", error);
@@ -232,7 +238,7 @@ const Login = () => {
       // setLoading(true);
       // console.log(signUpData1);
       const response = await axios.post(
-        "http://localhost:8080/customer/signUpCustomer",
+        "https://machjava.azurewebsites.net/customer/signUpCustomer",
         {
           customerType: "leader",
           firstName: signUpData1.firstName,
@@ -300,8 +306,10 @@ const Login = () => {
                 });
 
                 // setLoading(false);
-                navigate("/user");
+                
               })
+              
+              
             }
 
           // const storageRef = ref(storage, "");
@@ -327,10 +335,12 @@ const Login = () => {
           //         })
           //     }
           // )
+          
          catch (error) {
           console.error("Error during sign up process:", error);
           setLoading(false);
         }
+       
       }
     } catch (error) {
       console.error("Error signing up:", error);
@@ -340,8 +350,9 @@ const Login = () => {
   const handleSignInSubmit = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true)
       const response = await axios.post(
-        "http://localhost:8080/customer/signInCustomer",
+        "https://machjava.azurewebsites.net/customer/signInCustomer",
         {
           email: signInData.email,
           password: signInData.password,
@@ -349,7 +360,7 @@ const Login = () => {
       );
 
       if (response.status === 200) {
-        
+        localStorage.clear();
         console.log(response.data);
         const customerId = response.data.customerId;
         const userType = response.data.customerType;        
@@ -367,11 +378,13 @@ const Login = () => {
           // }
           
         console.log("User Type :" , userType);
+        setLoading(false)
             navigate("/user")
         })
         
       }
     } catch (error) {
+      setLoading(false)
       console.error("Error signing in:", error);
     }
   };
@@ -401,7 +414,7 @@ const Login = () => {
 
     if (sessionId) {
       // Verify the session ID with your backend
-      fetch(`http://localhost:8000/verify-session?session_id=${sessionId}`)
+      fetch(`https://mach-nodejs.vercel.app/verify-session?session_id=${sessionId}`)
         .then((response) => response.json())
         .then((data) => {
           if (data.paymentStatus === "success") {
@@ -434,10 +447,13 @@ const Login = () => {
               console.log("setSignupData", signUpData);
               localStorage.removeItem("formData"); // Clear stored data
             }
-            window.history.replaceState(null, null, window.location.pathname);
+            
+            window.location = "/login"
+            // window.history.replaceState(null, null, window.location.pathname);
           } else {
             alert("Payment verification failed");
           }
+          alert("You have successfully signed up please login");
         })
         .catch((error) => {
           console.error("Error:", error);

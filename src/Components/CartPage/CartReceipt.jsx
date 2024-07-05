@@ -19,7 +19,7 @@ function Receipt() {
 
   const fetchPaymentDetails = async (id) => {
     try {
-      const response = await fetch(`http://localhost:8000/payment-details/${id}`);
+      const response = await fetch(`https://mach-nodejs.vercel.app/payment-details/${id}`);
       const data = await response.json();
       console.log(data);
       setPaymentDetails(data);

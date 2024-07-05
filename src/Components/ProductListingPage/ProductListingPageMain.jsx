@@ -82,12 +82,12 @@ function ProductListingPageMain({ addToCart }) {
 
   return (
     <div>
-      <InstantSearch searchClient={searchClient} indexName="Joghub">
+      {products.length > 0 &&<InstantSearch searchClient={searchClient} indexName="Joghub">
         <SearchBox />
         <div className="product-list">
           <Hits hitComponent={(props) => <Hit {...props} addToCart={addToCart} />} />
         </div>
-      </InstantSearch>
+      </InstantSearch>}
       {/* {products.length >= 1 && (
         <div className="product-list">
           {products.map(product => (
@@ -96,9 +96,11 @@ function ProductListingPageMain({ addToCart }) {
         </div>
       )} */}
       {products.length < 1 && (
+         <div className="product-list">
         <div className='no-product-found'>
           <h1>No Products Found</h1>
           <h2>Please join a Community</h2>
+        </div>
         </div>
       )}
     </div>

@@ -58,7 +58,7 @@ export default function ProfilePage() {
     const customerID = localStorage.getItem('customerId');
 
     try {
-      const response = await axios.get('http://localhost:8080/customer/getCustomerById', {
+      const response = await axios.get('https://machjava.azurewebsites.net/customer/getCustomerById', {
         params: {
           id: customerID
         }
@@ -74,7 +74,7 @@ export default function ProfilePage() {
     const customerID = localStorage.getItem('customerId');
 
     try {
-      const response = await axios.get('http://localhost:8080/customer/getCommunity', {
+      const response = await axios.get('https://machjava.azurewebsites.net/customer/getCommunity', {
         params: {
           customerid: customerID
         }

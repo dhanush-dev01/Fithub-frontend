@@ -11,9 +11,9 @@ const Message = ({ message }) => {
 
   const ref = useRef();
 
-  useEffect(() => {
-    ref.current?.scrollIntoView({ behavior: "smooth" });
-  }, [message]);
+  // useEffect(() => {
+  //   ref.current?.scrollIntoView({ behavior: "smooth" });
+  // }, [message]);
 
   useEffect(() => {
     const handleSearch = async () => {

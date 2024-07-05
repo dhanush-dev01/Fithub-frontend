@@ -17,6 +17,7 @@ import ChatHome from './Components/ChatModule/ChatHome';
 import ChatLeader from './Components/chatdashboard_leader/chatleader';
 import Receipt from './Components/CartPage/CartReceipt';
 import UploadProducts from './Components/IntegratedCommunityPage/LeaderCommunityPage/UploadProducts';
+import Notfound from './Components/NotFound/NotFound';
  
 function App() {
   const [loading, setLoading] = useState(true);
@@ -25,8 +26,16 @@ function App() {
 
   const {currentUser} = useContext(AuthContext)
 
-  const ProtectedRoute = ({children}) =>{
+  const ProtectedRouteChat = ({children}) =>{
     if(!currentUser){
+      return <Navigate to="/"/>
+    }
+    return children
+  }
+
+  const ProtectedRoute = ({children}) =>{
+    let customerId = localStorage.getItem("customerId")
+    if(!customerId){
       return <Navigate to="/"/>
     }
     return children
@@ -63,16 +72,17 @@ function App() {
         <>
         {window.location.pathname != "/cart" &&<Header isLandingPage={isLandingPage} />}
           <Routes>
-            <Route path="/profile" element={<ProfilePageMain />} />
-            <Route path="/products" element={<ProductListingPageMain />} />
+            {/* <Route path="/profile" element={<ProfilePageMain />} /> */}
+            {/* <Route path="/products" element={<ProductListingPageMain />} /> */}
             {/* <Route path="/cart" element={<CartPageMain />} /> */}
             <Route path="/about" element={<AboutUs />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/complete" element={<Receipt />} />
-            <Route path="/upload" element={<UploadProducts />} />
-            <Route path="/user" element={<UserPageMain/>} />
-            <Route path="/chat" element={<ProtectedRoute><ChatHome /></ProtectedRoute>} />
+            <Route path="/user" element={<ProtectedRoute><UserPageMain/></ProtectedRoute>} />
+            <Route path="/complete" element={<ProtectedRoute><Receipt /></ProtectedRoute>} />
+            <Route path="/upload" element={<ProtectedRoute><UploadProducts /></ProtectedRoute>} />
+            <Route path="/chat" element={<ProtectedRouteChat><ChatHome /></ProtectedRouteChat>} />
             <Route path="/" element={<LandingPageMain />} />
+            <Route path='*' element={<Notfound />} />
           </Routes>
          
         </>

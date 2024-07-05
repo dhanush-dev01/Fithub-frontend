@@ -154,10 +154,15 @@
   .home .container1 .sidebar .userChat {
     padding: 10px;
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     gap: 10px;
     color: white;
     cursor: pointer;
+  }
+
+  .chats{
+    overflow: scroll;
+    height: calc(100% - 100px);
   }
   
   .home .container1 .sidebar .userChat:hover {
@@ -165,8 +170,8 @@
   }
   
   .home .container1 .sidebar .userChat img {
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     object-fit: cover;
   }
@@ -251,6 +256,8 @@
     padding: 10px 20px;
     border-radius: 0px 10px 10px 10px;
     max-width: max-content;
+    color: rgb(30, 29, 29);
+    font-size: 15px;
   }
   
   .home .container1 .chat .messages .message .messageContent img {
@@ -309,5 +316,6 @@
     color: white;
     background-color: #8da4f1;
     cursor: pointer;
+    border-radius: 5px;
   }
   

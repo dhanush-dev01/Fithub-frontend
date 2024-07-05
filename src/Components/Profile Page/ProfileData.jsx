@@ -23,7 +23,7 @@ const ProfileData = ({ onUpdateProfile, onClose }) => {
     const customerID = localStorage.getItem('customerId');
   
     try {
-      const response = await axios.post('http://localhost:8080/customer/updateCustomerDetails', {
+      const response = await axios.post('https://machjava.azurewebsites.net/customer/updateCustomerDetails', {
         age: formData.age.toString(),
         weight: formData.weight.toString(),
         height: formData.height.toString(),

@@ -12,7 +12,7 @@ const HollowPieChart = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/customer/getRecords', {
+        const response = await axios.get('https://machjava.azurewebsites.net/customer/getRecords', {
           params: { customerid: customerId }
         });
         console.log('API Response:', response.data);

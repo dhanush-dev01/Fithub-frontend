@@ -55,10 +55,12 @@ const Chats = () => {
                 }
                 alt=""
               />
+              
               <div className="userChatInfo">
                 <span>{chat[0].startsWith("global_") ? chat[1].groupName : chat[1].userInfo.displayName || "Unknown User"}</span>
                 <p>{chat[1].lastMessage?.text}</p>
               </div>
+              
             </div>
           );
         })}

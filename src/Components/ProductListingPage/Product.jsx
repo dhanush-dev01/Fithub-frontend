@@ -12,10 +12,10 @@ function Product({ product, addToCart }) {
     <div className="product">
       <h2>{product.name}</h2>
       <img
+        className='product-image'
         src={product.image}
         alt={"Joghub" + product.id}
-        height={200}
-        width={200}
+       
       />
       <p>₹{formatPrice(product.price)}</p>
       <button onClick={() => addToCart(product)}>Add to Cart</button>

@@ -8,11 +8,11 @@ const Navbar = () => {
 
   return (
     <div className='navbar'>
-      <span className="logo">JogHub Chat</span>
+      <span className="logo">Chat</span>
       <div className="user">
         <img src={"https://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg"} alt="" />
         <span>{currentUser.displayName}</span>
-        <button onClick={()=>signOut(auth)}>logout</button>
+        {/* <button onClick={()=>signOut(auth)}>logout</button> */}
       </div>
     </div>
   )

@@ -15,10 +15,10 @@ function Cart({ cartItems, setIsCartOpen, updateQuantity, removeFromCart, isOpen
 
   const handleSessionCheck = async (sessionId) => {
     try {
-      const response = await fetch(`http://localhost:8000/stripe-session/${sessionId}`);
+      const response = await fetch(`https://mach-nodejs.vercel.app/stripe-session/${sessionId}`);
       const sessionData = await response.json();
       if (sessionData.payment_status !== 'paid') {
-        await fetch('http://localhost:8000/revert-voucher', {
+        await fetch('https://mach-nodejs.vercel.app/revert-voucher', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -43,7 +43,7 @@ function Cart({ cartItems, setIsCartOpen, updateQuantity, removeFromCart, isOpen
     setError('');
     setSuccessMessage('');
     try {
-      const response = await fetch('http://localhost:8000/voucher', {
+      const response = await fetch('https://mach-nodejs.vercel.app/voucher', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ function Cart({ cartItems, setIsCartOpen, updateQuantity, removeFromCart, isOpen
 
   const handlePayment = async () => {
     try {
-      const response = await fetch('http://localhost:8000/cart-payment', {
+      const response = await fetch('https://mach-nodejs.vercel.app/cart-payment', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

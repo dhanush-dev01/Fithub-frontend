@@ -1,9 +1,12 @@
 import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import './Styles/HeaderMainComponent.css';
 import { AiOutlineUser } from "react-icons/ai";
 import logo from '../../assets/Images/Logo-Light.png';
 import { ReactComponent as CartIcon } from "../../cart-icon.svg";
+import { useNavigate } from 'react-router-dom';
+import { signOut } from 'firebase/auth';
+import { auth } from '../ChatModule/firebase';
 
 const Header = ({ cartItems, setIsCartOpen, isLandingPage }) => {
   const navigate = useNavigate();
@@ -17,6 +20,9 @@ const Header = ({ cartItems, setIsCartOpen, isLandingPage }) => {
 
   const handleLogoutClick = () => {
     // Implement your logout logic here
+    signOut(auth)
+    localStorage.clear()
+    navigate("/")
   };
 
   // Check if the current path is the login page

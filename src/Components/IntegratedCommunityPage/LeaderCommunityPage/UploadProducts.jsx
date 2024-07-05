@@ -23,7 +23,7 @@ const UploadProducts = () => {
   const fetchCommunity = async () => {
     try {
       const customerId = localStorage.getItem('customerId');
-      const response = await axios.get('http://localhost:8080/customer/getCommunity', {
+      const response = await axios.get('https://machjava.azurewebsites.net/customer/getCommunity', {
         params: { customerid: customerId },
       });
       setCommunity(response.data);
@@ -52,7 +52,7 @@ const UploadProducts = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/product/addProduct', product);
+      const response = await axios.post('https://machjava.azurewebsites.net/product/addProduct', product);
       console.log('Product added:', response.data);
       const sku = response.data.masterData.current.masterVariant.sku;
       localStorage.setItem('sku', sku);
@@ -66,7 +66,7 @@ const UploadProducts = () => {
       }
 
       // Add product to the community
-      const addProductToCommunityResponse = await axios.post('http://localhost:8080/productselection/addProductToCommunity', null, {
+      const addProductToCommunityResponse = await axios.post('https://machjava.azurewebsites.net/productselection/addProductToCommunity', null, {
         params: {
           community,
           sku,
