@@ -13,7 +13,65 @@
 }
 
 .infoContainer {
-  margin-top: 10px;
+  margin-top: -50px;
+}
+.maincontainermaps {
+  display: flex;
+}
+
+.distance{
+  color: white;
+  font-size: 50px;
+  margin-top: -20%;
+  margin-left: 60%;
+}
+.distance span{
+  font-size: 20px;
+}
+.distance p{
+  font-size: 20px;
+  margin-top: -5%;
+  margin-left: -55%;
+  color: antiquewhite;
+}
+.time{
+  color: white;
+  font-size: 30px;
+  margin-top: -10%;
+  margin-left: 82%;
+}
+.time p{
+  font-size: 20px;
+}
+.mapsbutton1{
+  color: white;
+  background-color: red;
+  padding: 5px 10px 5px 10px;
+  margin-left: 60%;
+  border: none;
+ 
+}
+.mapsbutton4{
+  color: white;
+  background-color: red;
+  padding: 5px 10px 5px 10px;
+  margin-left: 60%;
+  border: none;
+ 
+}
+.mapsbutton2{
+  color: white;
+  background-color: red;
+  padding: 5px 10px 5px 10px;
+  border: none;
+ 
+}
+.mapsbutton3{
+  color: white;
+  background-color: rgb(95, 84, 84);
+  padding: 5px 10px 5px 10px;
+  border: none;
+ 
 }
 
 .modalOverlay {
@@ -103,4 +161,30 @@
 
 .buttonGroup button:hover {
   background: #0056b3;
+}
+@media (min-width: 1500px) {
+  .distance{
+    color: white;
+    font-size: 60px;
+    margin-top: -20%;
+    margin-left: 60%;
+  }
+  .distance span{
+    font-size: 20px;
+  }
+  .distance p{
+    font-size: 20px;
+    color: antiquewhite;
+    margin-top: 1%;
+    margin-left: -70%;
+  }
+  .time{
+    color: white;
+    font-size: 50px;
+    margin-top: -9%;
+    margin-left: 78%;
+  }
+  .time p{
+    font-size: 20px;
+  }
 }
