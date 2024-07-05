@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './Styles/UCommunity.css'; // Import custom CSS file
+import './styles/UCommunity.css'; // Import custom CSS file
 import ChatHome from '../../ChatModule/ChatHome';
 
 export default function UserCommunityPage() {
