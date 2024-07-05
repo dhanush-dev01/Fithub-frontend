@@ -3,10 +3,20 @@ import './Styles/HeaderMainComponent.css';
 import { AiOutlineUser } from "react-icons/ai";
 import logo from '../../assets/Images/Logo-Light.png';
 import { ReactComponent as CartIcon } from "../../cart-icon.svg";
+import { useNavigate } from 'react-router-dom';
+import { signOut } from 'firebase/auth';
+import { auth } from '../ChatModule/firebase';
 
 const Header = ({cartItems, setIsCartOpen, isLandingPage }) => {
   const itemCount =
     cartItems && cartItems.reduce((acc, item) => acc + item.quantity, 0);
+    const navigate = useNavigate();
+
+    const handleSignOut = () =>{
+      signOut(auth)
+      localStorage.clear()
+      navigate("/")
+    }
   return (
     <header className="header">
       <nav className="navbar-container">
@@ -17,9 +27,9 @@ const Header = ({cartItems, setIsCartOpen, isLandingPage }) => {
         </div>
         <div className="HeaderProfile">
           {isLandingPage ? (
-            <button>Login</button>
+            <button onClick={()=>navigate("/login")}>Login</button>
           ) : (
-            <button>Logout</button>
+            <button onClick={handleSignOut}>Logout</button>
           )}
           {/* Jeevan jolgar please condition add madu --> Dhanush  */}
           {/* <a href="/profile">

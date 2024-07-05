@@ -185,7 +185,7 @@ export default function Maps() {
     };
 
     try {
-      const response = await axios.post('http://localhost:8080/customer/appendRecords', null, {
+      const response = await axios.post('https://machjava.azurewebsites.net/customer/appendRecords', null, {
         params: {
           customerid: customerId,
           date: new Date().toLocaleDateString(), // current date in dd-MM-yyyy format

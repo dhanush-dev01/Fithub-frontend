@@ -17,7 +17,7 @@ export default function UserCommunityPage() {
         if (storedCustomerId) {
           setCustomerId(storedCustomerId);
 
-          const response = await axios.get('http://localhost:8080/customer/getCommunity', {
+          const response = await axios.get('https://machjava.azurewebsites.net/customer/getCommunity', {
             params: {
               customerid: storedCustomerId,
             },
@@ -44,7 +44,7 @@ export default function UserCommunityPage() {
 
     const fetchAvailableCommunities = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/customobj/getCommunity');
+        const response = await axios.get('https://machjava.azurewebsites.net/customobj/getCommunity');
         console.log("Available communities response: ", response.data);
 
         const availableCommunities = response.data.map(community => community.name);
@@ -59,7 +59,7 @@ export default function UserCommunityPage() {
 
   const fetchCommunityMembers = async (communityName) => {
     try {
-      const response = await axios.get('http://localhost:8080/customer/getCustomersByCommunity', {
+      const response = await axios.get('https://machjava.azurewebsites.net/customer/getCustomersByCommunity', {
         params: {
           communityName,
         },
@@ -74,7 +74,7 @@ export default function UserCommunityPage() {
 
   const fetchCommunityLeader = async (communityName) => {
     try {
-      const response = await axios.get('http://localhost:8080/customer/getLeaderOfCommunity', {
+      const response = await axios.get('https://machjava.azurewebsites.net/customer/getLeaderOfCommunity', {
         params: {
           communityName,
         },
@@ -89,7 +89,7 @@ export default function UserCommunityPage() {
 
   const handleJoinCommunity = async (community) => {
     try {
-      const response = await axios.post('http://localhost:8080/customer/addToCommunity', null, {
+      const response = await axios.post('https://machjava.azurewebsites.net/customer/addToCommunity', null, {
         params: {
           community: community,
           customerid: customerId,

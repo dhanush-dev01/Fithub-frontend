@@ -71,7 +71,7 @@ const Login = () => {
       try {
         // Store form data before redirecting
         localStorage.setItem("formData", JSON.stringify(signUpData));
-        const response = await fetch("http://localhost:8000/leaderLogin", {
+        const response = await fetch("https://mach-nodejs.vercel.app/leaderLogin", {
           method: "POST",
         });
         const data = await response.json();
@@ -102,7 +102,7 @@ const Login = () => {
     if (formErrors.length === 0) {
       try {
         const response = await axios.post(
-          "http://localhost:8080/customer/signUpCustomer",
+          "https://machjava.azurewebsites.net/customer/signUpCustomer",
           {
             customerType: signUpData.customerType,
             firstName: signUpData.firstName,
@@ -232,7 +232,7 @@ const Login = () => {
       // setLoading(true);
       // console.log(signUpData1);
       const response = await axios.post(
-        "http://localhost:8080/customer/signUpCustomer",
+        "https://machjava.azurewebsites.net/customer/signUpCustomer",
         {
           customerType: "leader",
           firstName: signUpData1.firstName,
@@ -340,8 +340,9 @@ const Login = () => {
   const handleSignInSubmit = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true)
       const response = await axios.post(
-        "http://localhost:8080/customer/signInCustomer",
+        "https://machjava.azurewebsites.net/customer/signInCustomer",
         {
           email: signInData.email,
           password: signInData.password,
@@ -349,7 +350,7 @@ const Login = () => {
       );
 
       if (response.status === 200) {
-        
+        localStorage.clear();
         console.log(response.data);
         const customerId = response.data.customerId;
         const userType = response.data.customerType;        
@@ -367,11 +368,13 @@ const Login = () => {
           // }
           
         console.log("User Type :" , userType);
+        setLoading(false)
             navigate("/user")
         })
         
       }
     } catch (error) {
+      setLoading(false)
       console.error("Error signing in:", error);
     }
   };
@@ -401,7 +404,7 @@ const Login = () => {
 
     if (sessionId) {
       // Verify the session ID with your backend
-      fetch(`http://localhost:8000/verify-session?session_id=${sessionId}`)
+      fetch(`https://mach-nodejs.vercel.app/verify-session?session_id=${sessionId}`)
         .then((response) => response.json())
         .then((data) => {
           if (data.paymentStatus === "success") {

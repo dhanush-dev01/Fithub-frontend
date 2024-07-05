@@ -28,7 +28,7 @@ export default function LeaderCommunity({ leaderId }) {
 
   const fetchCommunities = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/customobj/getCommunity?leaderId=${leaderId}`);
+      const response = await axios.get(`https://machjava.azurewebsites.net/customobj/getCommunity?leaderId=${leaderId}`);
       const filteredCommunities = response.data.filter((community, index) => index >= 3);
       setCommunities(filteredCommunities);
     } catch (error) {
@@ -53,7 +53,7 @@ export default function LeaderCommunity({ leaderId }) {
     const newCommunity = { name: communityName, address, agenda, location, iconUrl };
 
     try {
-      const response = await axios.post('http://localhost:8080/customobj/addCommunity', newCommunity);
+      const response = await axios.post('https://machjava.azurewebsites.net/customobj/addCommunity', newCommunity);
       if (response.status === 200) {
         setCommunities([...communities, response.data]);
         setCommunityName('');
@@ -114,7 +114,7 @@ export default function LeaderCommunity({ leaderId }) {
 
   const handleDeleteCommunity = async (communityName) => {
     try {
-      const response = await axios.delete(`http://localhost:8080/customobj/removeCommunity?community=${encodeURIComponent(communityName)}`);
+      const response = await axios.delete(`https://machjava.azurewebsites.net/customobj/removeCommunity?community=${encodeURIComponent(communityName)}`);
       if (response.status === 200) {
         setCommunities(communities.filter(community => community.name !== communityName));
       } else {
