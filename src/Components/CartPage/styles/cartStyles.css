@@ -303,6 +303,7 @@
   margin: 5px 0;
   text-align: left;
   font-weight: bold;
+  color: rgb(97, 88, 88) !important;
 }
 
 .item-controls {
