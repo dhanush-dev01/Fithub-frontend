@@ -78,7 +78,7 @@ const DistanceBarChart = () => {
         <Legend />
         <Bar dataKey="timeInSeconds" name="Time (seconds)" fill="#8884d8" />
       </BarChart>
-      <p>Time spent on activities </p>
+      <p style={{color:"black"}}>Time spent on activities </p>
     </div>
   );
 };

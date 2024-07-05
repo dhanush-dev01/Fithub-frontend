@@ -72,7 +72,7 @@ const HollowPieChart = () => {
       <div className={styles.centeredText}>
         {completedActivities}/{totalActivities}
       </div>
-      <p>Target completed Past 7 days</p>
+      <p style={{color: "black"}}>Target completed Past 7 days</p>
     </div>
   );
 };
