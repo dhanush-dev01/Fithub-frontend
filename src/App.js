@@ -74,9 +74,9 @@ function App() {
             {/* <Route path="/cart" element={<CartPageMain />} /> */}
             <Route path="/about" element={<AboutUs />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/user" element={<UserPageMain/>} />
             <Route path="/complete" element={<Receipt />} />
             <Route path="/upload" element={<UploadProducts />} />
+            <Route path="/user" element={<UserPageMain/>} />
             <Route path="/chat" element={<ProtectedRoute><ChatHome /></ProtectedRoute>} />
             <Route path="/" element={<LandingPageMain />} />
           </Routes>

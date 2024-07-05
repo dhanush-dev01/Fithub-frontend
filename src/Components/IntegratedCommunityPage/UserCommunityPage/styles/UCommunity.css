@@ -1,0 +1,50 @@
+
+.user-Community-Container {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-top: 20px;
+  }
+  
+  .community-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .community-status {
+    margin-bottom: 20px;
+  }
+  
+  .community-members {
+    margin-top: 20px;
+  }
+  
+  .community-members-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .community-member-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .join-community-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .join-community-btn:hover {
+    background-color: #0056b3;
+  }
+  .UserCommunityh4{
+    color: whitesmoke;
+  }

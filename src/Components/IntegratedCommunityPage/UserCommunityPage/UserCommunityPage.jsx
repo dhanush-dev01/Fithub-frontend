@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles/UCommunity.css'; // Import custom CSS file
 
 export default function UserCommunityPage() {
   const [isInCommunity, setIsInCommunity] = useState(false);
@@ -107,23 +108,23 @@ export default function UserCommunityPage() {
   };
 
   return (
-    <div className="container mt-5">
+    <div className="user-Community-Container">
       {isInCommunity ? (
         <div>
-          <h3>Welcome to your Community Page!</h3>
-          <p>You are already part of the {currentCommunity} community.</p>
+          <h3 className="community-header styledHeading">Welcome to your Community Page!</h3>
+          <p className="community-status styledHeading">You are already part of the {currentCommunity} community.</p>
 
           {communityLeader && (
             <div>
-              <h4>Community Leader:</h4>
+              <h4 className='styledHeading'>Community Leader</h4>
               <p>{communityLeader.firstName} {communityLeader.lastName}</p>
             </div>
           )}
 
-          <h4>Community Members:</h4>
-          <ul className="list-group">
+          <h4 className="community-members styledHeading">Community Members</h4>
+          <ul className="community-members-list">
             {communityMembers.map((member, index) => (
-              <li key={index} className="list-group-item">
+              <li key={index} className="community-member-item">
                 {member.firstName} {member.lastName}
               </li>
             ))}
@@ -131,12 +132,12 @@ export default function UserCommunityPage() {
         </div>
       ) : (
         <div>
-          <h3>Join a Community</h3>
+          <h3 className="community-header">Join a Community</h3>
           <ul className="list-group">
             {communities.map((community, index) => (
               <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
                 {community}
-                <button className="btn btn-primary" onClick={() => handleJoinCommunity(community)}>Join</button>
+                <button className="join-community-btn" onClick={() => handleJoinCommunity(community)}>Join</button>
               </li>
             ))}
           </ul>

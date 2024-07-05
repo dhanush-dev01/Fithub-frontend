@@ -12,10 +12,12 @@
 .leader-community-container {
   padding: 1%;
   border-radius: 8px;
-  max-width: 80%;
-  margin: 0 auto;
+  max-width: 100%;
   color: whitesmoke;
   animation: easeIn 0.7s forwards;
+}
+.CommunityPlusCommunityMembers{
+  display: flex;
 }
 
 .styledHeading {
@@ -64,15 +66,18 @@
 }
 
 .community-list {
-  margin-top: 2%;
+  border: 1px solid whitesmoke;
+  border-radius: 8px;
+  width: 40vw;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  position: relative;
+  animation: easeIn 0.7s forwards;
+
 }
 
 .community-item {
-  width: 90%;
+  width: 100%;
   padding: 2%;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   border-radius: 8px;
@@ -103,23 +108,33 @@
   margin-bottom: 5px;
 }
 
-.delete-Community-button {
-  background-color: #dc3545;
-  height: 6vh;
-  width: 30vw;
+.community-buttons {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  margin-top: 2%;
+}
+
+.upload-items-button,
+.delete-Community-button,
+.chat-with-community-button {
+  width: 10vw;
+  background-color: #007bff;
+  margin-top: 10%;
   color: white;
-  padding: 2%;
+  padding: 10px 20px;
   border: none;
   border-radius: 5px;
-  font-size: large;
-  margin-top: 2%;
-  margin-bottom: 1%;
+  cursor: pointer;
+  font-size: 16px;
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
-.delete-Community-button:hover {
+.upload-items-button:hover,
+.delete-Community-button:hover,
+.chat-with-community-button:hover {
   background-color: whitesmoke;
-  color: #dc3545;
+  color: #007bff;
 }
 
 .error-message {
@@ -128,14 +143,7 @@
   text-align: center;
 }
 
-.community-chat-icon {
-  font-size: 70px;
-  position: absolute;
-  top: -13%;
-  left: 73%;
-  color: #ea5463;
-  animation: blink 4s infinite;
-}
+
 
 .community-chat-icon:hover {
   color: white;
@@ -160,4 +168,50 @@
   display: flex;
   flex-direction: column;
 }
+.delete-Community-button {
+  background-color: #dc3545;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
 
+.delete-Community-button:hover {
+  background-color: whitesmoke;
+  color: #dc3545;
+}
+.imagePlusButtons{
+  display: flex;
+}
+.community-members-container{
+  margin: 0 1% ;
+  border: 1px solid whitesmoke;
+  border-radius: 8px;
+  width: 27vw;
+  animation: easeIn 0.7s forwards;
+
+}
+.community-members-container h4{
+  text-align: center;
+  margin: 2% auto;
+  animation: easeIn 0.7s forwards;
+
+}
+.list-group-item{
+  margin: 2%;
+  animation: easeIn 0.7s forwards;
+
+}
+.upload-products-container{
+  border: 1px solid white;
+  border-radius: 8px;
+  height: 60vh;
+  display: flex;
+  animation: easeIn 0.7s forwards;
+
+
+
+}

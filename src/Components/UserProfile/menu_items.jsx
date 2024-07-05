@@ -6,13 +6,18 @@ import axios from 'axios';
 const Menu_items = ({ isCollapsed, onMenuItemClick }) => {
   const [selectedItem, setSelectedItem] = useState('dashboard');
   const [userName, setUserName] = useState('');
+  const [profileImg, setProfileImg] = useState('');
 
   useEffect(() => {
     fetchUserData();
+    const storedProfileImg = localStorage.getItem('profileImg');
+    if (storedProfileImg) {
+      setProfileImg(storedProfileImg);
+    }
   }, []);
 
   const fetchUserData = async () => {
-    const customerID =localStorage.getItem('customerId');
+    const customerID = localStorage.getItem('customerId');
 
     try {
       const response = await axios.get('http://localhost:8080/customer/getCustomerById', {
@@ -23,7 +28,6 @@ const Menu_items = ({ isCollapsed, onMenuItemClick }) => {
       setUserName(response.data.firstName);
     } catch (error) {
       console.error('Error fetching user data:', error);
-     
     }
   };
 
@@ -35,7 +39,13 @@ const Menu_items = ({ isCollapsed, onMenuItemClick }) => {
   return (
     <div className={styles.menu}>
       <div className={styles.profileItem} onClick={() => handleMenuItemClick('profile')}>
-        <FaUserCircle className={styles.profileIcon} />
+        <div className={styles.profileIconContainer}>
+          {profileImg ? (
+            <img src={profileImg} alt="Profile" className={styles.menuprofileImage} />
+          ) : (
+            <FaUserCircle className={styles.menuprofileIcon} />
+          )}
+        </div>
         {!isCollapsed && <span className={styles.profileName}>{userName}</span>}
       </div>
       <a
