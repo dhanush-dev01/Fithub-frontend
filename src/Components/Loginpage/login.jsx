@@ -314,13 +314,13 @@ const Login = () => {
           
          catch (error) {
           console.error("Error during sign up process:", error);
-          setLoading(false);
+          // setLoading(false);
         }
        
       }
     } catch (error) {
       console.error("Error signing up:", error);
-      setLoading(false);
+      // setLoading(false);
     }
   };
 
@@ -424,6 +424,7 @@ const Login = () => {
             }
             
             // window.location = "/login"
+            setLoading(true)
             window.history.replaceState(null, null, window.location.pathname);
           } else {
             alert("Payment verification failed");
