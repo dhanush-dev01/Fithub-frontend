@@ -97,6 +97,9 @@ const Login = () => {
       }
       setIsLeader(e.target.checked);
     }
+    else {
+      formErrors.forEach((error) => toast.error(error));
+    }
   };
 
   const handleSignUpSubmit = async (e) => {
@@ -259,6 +262,7 @@ const Login = () => {
       if (response.status === 200) {
         // const auth = getAuth()
         try{
+          setLoading(true);
             createUserWithEmailAndPassword(auth, signUpData1.email, signUpData1.password).then(async( res) =>{
                 await updateProfile(res.user,{
                     displayName: signUpData1.firstName
