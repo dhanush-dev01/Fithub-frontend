@@ -330,6 +330,7 @@ const Login = () => {
       if (response.status === 200) {
         try {
           createUserWithEmailAndPassword(auth, signUpData1.email, signUpData1.password).then(async (res) => {
+            setLoading(true);
             await updateProfile(res.user, {
               displayName: signUpData1.firstName,
             });
