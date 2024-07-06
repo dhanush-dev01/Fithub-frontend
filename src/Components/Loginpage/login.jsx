@@ -306,35 +306,12 @@ const Login = () => {
                 });
 
                 // setLoading(false);
-                navigate("/login")
+                window.location = "/login"
+                setLoading(false)
                 alert("You have successfully signed up please login");
               })
               
             }
-
-          // const storageRef = ref(storage, "");
-
-          // const uploadTask = uploadBytesResumable(storageRef, file);
-
-          // uploadTask.on(
-          //     (error)=>{
-          //         console.log(error);
-          //     },
-          //     () =>{
-          //         getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) =>{
-          //             await updateProfile(await res.user,{
-          //                 displayName: signUpData.firstName + signUpData.lastName,
-          //                 photoURL: downloadURL
-          //             })
-          //             await setDoc(doc(db, "users", res.user.uid),{
-          //                 uid: res.user.uid,
-          //                 displayName: signUpData.firstName + signUpData.lastName,
-          //                 email: signUpData.email,
-          //                 photoURL: downloadURL
-          //             })
-          //         })
-          //     }
-          // )
           
          catch (error) {
           console.error("Error during sign up process:", error);
@@ -438,9 +415,7 @@ const Login = () => {
               // Update state and call handleLeaderSignUpData after state is updated
               // setSignUpData(prevData => {
               setLoading(true)
-              handleLeaderSignUpData(updatedData).then(()=>{
-                setLoading(false)
-              })
+              handleLeaderSignUpData(updatedData)
               // return updatedData;
               // });
 
