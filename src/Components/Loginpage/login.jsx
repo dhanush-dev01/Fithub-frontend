@@ -235,7 +235,7 @@ const Login = () => {
     // e.preventDefault();
 
     try {
-      // setLoading(true);
+      setLoading(true);
       // console.log(signUpData1);
       const response = await axios.post(
         "https://machjava.azurewebsites.net/customer/signUpCustomer",
@@ -305,9 +305,8 @@ const Login = () => {
                   },
                 });
 
-                // setLoading(false);
-                window.location = "/login"
                 setLoading(false)
+                window.location = "/login"
                 alert("You have successfully signed up please login");
               })
               
@@ -321,6 +320,7 @@ const Login = () => {
       }
     } catch (error) {
       console.error("Error signing up:", error);
+      setLoading(false);
     }
   };
 
@@ -428,7 +428,7 @@ const Login = () => {
           } else {
             alert("Payment verification failed");
           }
-          alert("You have successfully signed up please login");
+          // alert("You have successfully signed up please login");
         })
         .catch((error) => {
           console.error("Error:", error);
