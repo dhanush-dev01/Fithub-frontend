@@ -2,16 +2,12 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import './Styles/leaderCommunity.css';
 import logo from '../../../assets/Images/Joggingppl.jpg';
-
 import ChatHome from '../../ChatModule/ChatHome';
-import UploadProducts from './UploadProducts'; // Imported UploadProducts component
+import UploadProducts from './UploadProducts';
 import { FaCommentDots } from 'react-icons/fa';
-import { setDoc, doc, serverTimestamp, updateDoc, arrayUnion, getDoc } from "firebase/firestore";
-
-import { db } from '../../ChatModule/firebase';
 import { AuthContext } from '../../context/AuthContext';
 
-export default function LeaderCommunity({ leaderId }) {
+export default function LeaderCommunity() {
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [communityName, setCommunityName] = useState('');
   const [address, setAddress] = useState('');
@@ -22,38 +18,50 @@ export default function LeaderCommunity({ leaderId }) {
   const { currentUser } = useContext(AuthContext);
   const [error, setError] = useState('');
   const [isChatActive, setIsChatActive] = useState(false);
-  const [isUploadActive, setIsUploadActive] = useState(false); // State for upload visibility
+  const [isUploadActive, setIsUploadActive] = useState(false);
   const [communityMembers, setCommunityMembers] = useState([]);
 
   useEffect(() => {
-    fetchCommunities();
-  }, []);
+    if (currentUser) {
+      fetchCommunities();
+    }
+  }, [currentUser]);
 
   const fetchCommunities = async () => {
     try {
-      const response = await axios.get(`https://machjava.azurewebsites.net/customobj/getCommunity?leaderId=${leaderId}`);
+      const response = await axios.get(`https://machjava.azurewebsites.net/customobj/getCommunity`, {
+        params: { leaderId: currentUser.id },
+      });
       const filteredCommunities = response.data.filter((community, index) => index >= 3);
-      setCommunities(filteredCommunities);
 
-      // Fetch members for the first community in the list if available
+
+      // dont set here
+      // setCommunities(filteredCommunities);
+
       if (filteredCommunities.length > 0) {
-        fetchCommunityMembers(filteredCommunities[0].name);
+        fetchCommunityMembers(filteredCommunities[0].name,filteredCommunities);
       }
     } catch (error) {
       console.error('Error fetching communities:', error);
     }
   };
 
-  const fetchCommunityMembers = async (communityName) => {
+  const fetchCommunityMembers = async (communityName,filteredCommunities) => {
     try {
-      const response = await axios.get('http://localhost:8080/customer/getCustomersByCommunity', {
+      const response = await axios.get('https://machjava.azurewebsites.net/customer/getCustomersByCommunity', {
         params: {
           communityName,
         },
       });
 
-      console.log("Community members response: ", response.data);
-      setCommunityMembers(response.data);
+     let loggedInUser = currentUser.email;
+       let array = response.data.filter(each => each.email == loggedInUser);
+
+      // console.log("Community members response: ", response.data);
+      setCommunityMembers(array);
+      if(array.length > 0){
+        setCommunities(filteredCommunities);
+      }
     } catch (error) {
       console.error('Error fetching community members:', error);
     }
@@ -75,7 +83,9 @@ export default function LeaderCommunity({ leaderId }) {
     const newCommunity = { name: communityName, address, agenda, location, iconUrl };
 
     try {
-      const response = await axios.post('https://machjava.azurewebsites.net/customobj/addCommunity', newCommunity);
+      const response = await axios.post('https://machjava.azurewebsites.net/customobj/addCommunity', newCommunity, {
+        params: { customerid:   localStorage.getItem("customerId")},
+      });
       if (response.status === 200) {
         setCommunities([...communities, response.data]);
         setCommunityName('');
@@ -112,12 +122,12 @@ export default function LeaderCommunity({ leaderId }) {
 
   const toggleChat = () => {
     setIsChatActive(!isChatActive);
-    setIsUploadActive(false); // Ensure upload is inactive when chat is active
+    setIsUploadActive(false);
   };
 
   const toggleUpload = () => {
     setIsUploadActive(!isUploadActive);
-    setIsChatActive(false); // Ensure chat is inactive when upload is active
+    setIsChatActive(false);
   };
 
   return (
