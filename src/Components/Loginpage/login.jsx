@@ -186,30 +186,7 @@ const Login = () => {
               
             });
 
-            // const storageRef = ref(storage, "");
-
-            // const uploadTask = uploadBytesResumable(storageRef, file);
-
-            // uploadTask.on(
-            //     (error)=>{
-            //         console.log(error);
-            //     },
-            //     () =>{
-            //         getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) =>{
-            //             await updateProfile(await res.user,{
-            //                 displayName: signUpData.firstName + signUpData.lastName,
-            //                 photoURL: downloadURL
-            //             })
-            //             await setDoc(doc(db, "users", res.user.uid),{
-            //                 uid: res.user.uid,
-            //                 displayName: signUpData.firstName + signUpData.lastName,
-            //                 email: signUpData.email,
-            //                 photoURL: downloadURL
-            //             })
-            //         })
-            //     }
-
-            // )
+  
           } catch (error) {
             console.log(error);
           }
@@ -240,12 +217,103 @@ const Login = () => {
     <JoggingAnimation />;
   }
 
-  const handleLeaderSignUpData = async (signUpData1) => {
-    // e.preventDefault();
+  // const handleLeaderSignUpData = async (signUpData1) => {
+  //   // e.preventDefault();
 
+  //   try {
+  //     setLoading(true);
+  //     // console.log(signUpData1);
+  //     const response = await axios.post(
+  //       "https://machjava.azurewebsites.net/customer/signUpCustomer",
+  //       {
+  //         customerType: "leader",
+  //         firstName: signUpData1.firstName,
+  //         lastName: signUpData1.lastName,
+  //         email: signUpData1.email,
+  //         password: signUpData1.password,
+  //         community: signUpData1.community,
+  //         newPassword: signUpData1.confirmPassword,
+  //       }
+  //     );
+
+  //     if (response.status === 200) {
+  //       // const auth = getAuth()
+  //       try{
+  //         setLoading(true);
+  //           createUserWithEmailAndPassword(auth, signUpData1.email, signUpData1.password).then(async( res) =>{
+  //               await updateProfile(res.user,{
+  //                   displayName: signUpData1.firstName
+  //               })
+  //               await setDoc(doc(db, "users", res.user.uid),{
+  //                   uid: res.user.uid,
+  //                   displayName: signUpData1.firstName,
+  //                   email: signUpData1.email,
+  //                   customerType: "leader"
+  //                   // photoURL: downloadURL
+  //               })
+  //               await setDoc(doc(db, "userChats", res.user.uid),{})
+
+  //               const groupId = "global_group_chat";
+  //               const groupData = {
+  //                 groupId,
+  //                 groupName: "Community Group Chat",
+  //                 users: arrayUnion({
+  //                   uid: res.user.uid,
+  //                   displayName: signUpData1.firstName,
+  //                   displayName: signUpData1.firstName,
+  //                 }),
+  //                 messages: [],
+  //                 date: serverTimestamp(),
+  //               };
+
+  //               const groupChatRef = doc(db, "chats", groupId);
+  //               const groupChatSnapshot = await getDoc(groupChatRef);
+
+  //               if (groupChatSnapshot.exists()) {
+  //                 // Update existing group chat
+  //                 await updateDoc(groupChatRef, {
+  //                   users: arrayUnion({
+  //                     uid: res.user.uid,
+  //                     displayName: signUpData1.firstName,
+  //                     displayName: signUpData1.firstName,
+  //                   }),
+  //                 });
+  //               } else {
+  //                 // Create a new group chat
+  //                 await setDoc(groupChatRef, groupData);
+  //               }
+
+  //               // Update userChats collection for the new user
+  //               await updateDoc(doc(db, "userChats", res.user.uid), {
+  //                 [groupId]: {
+  //                   groupId,
+  //                   groupName: "Community Group Chat",
+  //                   date: serverTimestamp(),
+  //                 },
+  //               });
+
+  //               setLoading(false)
+  //               window.location = "/login"
+  //               alert("You have successfully signed up please login");
+  //             })
+              
+  //           }
+          
+  //        catch (error) {
+  //         console.error("Error during sign up process:", error);
+  //         // setLoading(false);
+  //       }
+       
+  //     }
+  //   } catch (error) {
+  //     console.error("Error signing up:", error);
+  //     // setLoading(false);
+  //   }
+  // };
+
+  const handleLeaderSignUpData = async (signUpData1) => {
     try {
       setLoading(true);
-      // console.log(signUpData1);
       const response = await axios.post(
         "https://machjava.azurewebsites.net/customer/signUpCustomer",
         {
@@ -260,77 +328,69 @@ const Login = () => {
       );
 
       if (response.status === 200) {
-        // const auth = getAuth()
-        try{
-          setLoading(true);
-            createUserWithEmailAndPassword(auth, signUpData1.email, signUpData1.password).then(async( res) =>{
-                await updateProfile(res.user,{
-                    displayName: signUpData1.firstName
-                })
-                await setDoc(doc(db, "users", res.user.uid),{
-                    uid: res.user.uid,
-                    displayName: signUpData1.firstName,
-                    email: signUpData1.email,
-                    customerType: "leader"
-                    // photoURL: downloadURL
-                })
-                await setDoc(doc(db, "userChats", res.user.uid),{})
+        try {
+          createUserWithEmailAndPassword(auth, signUpData1.email, signUpData1.password).then(async (res) => {
+            await updateProfile(res.user, {
+              displayName: signUpData1.firstName,
+            });
+            await setDoc(doc(db, "users", res.user.uid), {
+              uid: res.user.uid,
+              displayName: signUpData1.firstName,
+              email: signUpData1.email,
+              customerType: "leader",
+            });
+            await setDoc(doc(db, "userChats", res.user.uid), {});
 
-                const groupId = "global_group_chat";
-                const groupData = {
-                  groupId,
-                  groupName: "Global Group Chat",
-                  users: arrayUnion({
-                    uid: res.user.uid,
-                    displayName: signUpData1.firstName,
-                    displayName: signUpData1.firstName,
-                  }),
-                  messages: [],
-                  date: serverTimestamp(),
-                };
+            const groupId = "global_group_chat";
+            const groupData = {
+              groupId,
+              groupName: "Community Group Chat",
+              users: arrayUnion({
+                uid: res.user.uid,
+                displayName: signUpData1.firstName,
+              }),
+              messages: [],
+              date: serverTimestamp(),
+            };
 
-                const groupChatRef = doc(db, "chats", groupId);
-                const groupChatSnapshot = await getDoc(groupChatRef);
+            const groupChatRef = doc(db, "chats", groupId);
+            const groupChatSnapshot = await getDoc(groupChatRef);
 
-                if (groupChatSnapshot.exists()) {
-                  // Update existing group chat
-                  await updateDoc(groupChatRef, {
-                    users: arrayUnion({
-                      uid: res.user.uid,
-                      displayName: signUpData1.firstName,
-                      displayName: signUpData1.firstName,
-                    }),
-                  });
-                } else {
-                  // Create a new group chat
-                  await setDoc(groupChatRef, groupData);
-                }
-
-                // Update userChats collection for the new user
-                await updateDoc(doc(db, "userChats", res.user.uid), {
-                  [groupId]: {
-                    groupId,
-                    groupName: "Global Group Chat",
-                    date: serverTimestamp(),
-                  },
-                });
-
-                setLoading(false)
-                window.location = "/login"
-                alert("You have successfully signed up please login");
-              })
-              
+            if (groupChatSnapshot.exists()) {
+              // Update existing group chat
+              await updateDoc(groupChatRef, {
+                users: arrayUnion({
+                  uid: res.user.uid,
+                  displayName: signUpData1.firstName,
+                }),
+              });
+            } else {
+              // Create a new group chat
+              await setDoc(groupChatRef, groupData);
             }
-          
-         catch (error) {
+
+            // Update userChats collection for the new user
+            await updateDoc(doc(db, "userChats", res.user.uid), {
+              [groupId]: {
+                groupId,
+                groupName: "Community Group Chat",
+                date: serverTimestamp(),
+              },
+            });
+            
+          }).finally(() => {
+            setLoading(false);
+            alert("You have successfully signed up please login");
+            window.location.href = "/login";
+          });
+        } catch (error) {
           console.error("Error during sign up process:", error);
-          // setLoading(false);
+          setLoading(false);
         }
-       
       }
     } catch (error) {
       console.error("Error signing up:", error);
-      // setLoading(false);
+      setLoading(false);
     }
   };
 
