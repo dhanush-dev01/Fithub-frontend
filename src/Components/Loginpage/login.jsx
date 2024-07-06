@@ -66,31 +66,37 @@ const Login = () => {
   // };
 
   const handleCheckboxChange = async (e) => {
-    alert("Need to pay 199 rupees before proceeding as a user..");
-    if (e.target.checked) {
-      try {
-        // Store form data before redirecting
-        localStorage.setItem("formData", JSON.stringify(signUpData));
-        const response = await fetch("https://mach-nodejs.vercel.app/leaderLogin", {
-          method: "POST",
-        });
-        const data = await response.json();
-        if (response.ok) {
-          window.location.href = data.url; // Redirect to Stripe checkout
-        } else {
-          alert("Payment failed");
+    const formErrors = validateSignUp();
+    if (formErrors.length === 0) {
+      alert("Need to pay 199 rupees before proceeding as a user..");
+      if (e.target.checked) {
+        try {
+          // Store form data before redirecting
+          localStorage.setItem("formData", JSON.stringify(signUpData));
+          const response = await fetch(
+            "https://mach-nodejs.vercel.app/leaderLogin",
+            {
+              method: "POST",
+            }
+          );
+          const data = await response.json();
+          if (response.ok) {
+            window.location.href = data.url; // Redirect to Stripe checkout
+          } else {
+            alert("Payment failed");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          alert("Payment error");
         }
-      } catch (error) {
-        console.error("Error:", error);
-        alert("Payment error");
+      } else {
+        setSignUpData({
+          ...signUpData,
+          customerType: "user",
+        });
       }
-    } else {
-      setSignUpData({
-        ...signUpData,
-        customerType: "user",
-      });
+      setIsLeader(e.target.checked);
     }
-    setIsLeader(e.target.checked);
   };
 
   const handleSignUpSubmit = async (e) => {
@@ -425,7 +431,7 @@ const Login = () => {
             
             // window.location = "/login"
             setLoading(true)
-            window.history.replaceState(null, null, window.location.pathname);
+            // window.history.replaceState(null, null, window.location.pathname);
           } else {
             alert("Payment verification failed");
           }
