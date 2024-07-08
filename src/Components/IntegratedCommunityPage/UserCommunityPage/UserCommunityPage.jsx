@@ -122,6 +122,9 @@ export default function UserCommunityPage() {
             <p className="community-status styledHeading">You are already part of the  <span className="bold-large"> {currentCommunity} </span>community.</p>
 
         <div className="community-and-chat">
+        <div className="chat-home-container">
+            <ChatHome />
+          </div>
           <div className="community-members-container">
           
             {communityLeader && (
@@ -139,9 +142,7 @@ export default function UserCommunityPage() {
               ))}
             </ul>
           </div>
-          <div className="chat-home-container">
-            <ChatHome />
-          </div>
+          
 
 
         </div>
