@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './Styles/Uploadproduct.module.css';
 
@@ -58,7 +58,7 @@ const UploadProducts = () => {
       localStorage.setItem('sku', sku);
 
       // Fetch the community name
-      await fetchCommunity();
+      //await fetchCommunity();
 
       // Ensure community is set
       if (!community) {
@@ -81,6 +81,9 @@ const UploadProducts = () => {
     }
   };
 
+  useEffect(() =>{
+    fetchCommunity()
+  },[])
   return (
     <div className={styles.formContainer}>
       <h3  className="styledHeading ">Add Product to your Community</h3>

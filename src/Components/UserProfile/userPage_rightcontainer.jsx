@@ -35,12 +35,12 @@ const UserPage_rightcontainer = ({ selectedItem }) => {
       case 'community':
         return <UserCommunityPage />;
       case 'product':
-        if (userType === 'cust-leader') {
-          return <UploadProducts/>
-        }
-        else{
+        // if (userType === 'cust-leader') {
+        //   return <UploadProducts/>
+        // }
+        // else{
         return <CartPageMain/>
-        }
+        // }
 
       default:
         return <Dashboard />;
