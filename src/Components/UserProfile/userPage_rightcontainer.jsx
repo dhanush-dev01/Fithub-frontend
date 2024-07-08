@@ -7,6 +7,7 @@ import UserCommunity from '../IntegratedCommunityPage/LeaderCommunityPage/Leader
 import ProfilePage from '../Profile Page/ProfilePageMain';
 import UserCommunityPage from '../IntegratedCommunityPage/UserCommunityPage/UserCommunityPage';
 import CartPageMain from '../CartPage/CartPageMain';
+import UploadProducts from '../IntegratedCommunityPage/LeaderCommunityPage/UploadProducts';
 
 
 
@@ -34,7 +35,12 @@ const UserPage_rightcontainer = ({ selectedItem }) => {
       case 'community':
         return <UserCommunityPage />;
       case 'product':
+        if (userType === 'cust-leader') {
+          return <UploadProducts/>
+        }
+        else{
         return <CartPageMain/>
+        }
 
       default:
         return <Dashboard />;
