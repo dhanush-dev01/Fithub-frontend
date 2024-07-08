@@ -14,6 +14,7 @@ function Hit({ hit, addToCart }) {
 function ProductListingPageMain({ addToCart }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [community, setCommunity] = useState(null);
 
 
   useEffect(() => {
@@ -24,6 +25,8 @@ function ProductListingPageMain({ addToCart }) {
             customerid: customerid
           }
         });
+
+        setCommunity(response.data)
 
         if (response.data !== "Community not found") {
           const res = await axios.get("https://machjava.azurewebsites.net/productselection/getProductSelectionProducts", {
@@ -99,7 +102,7 @@ function ProductListingPageMain({ addToCart }) {
          <div className="product-list">
         <div className='no-product-found'>
           <h1>No Products Found</h1>
-          <h2>Please join a Community</h2>
+          {community && community == "Community not found" && <h2>Please join a Community</h2>}
         </div>
         </div>
       )}
