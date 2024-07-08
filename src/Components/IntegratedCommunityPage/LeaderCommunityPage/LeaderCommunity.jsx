@@ -22,46 +22,50 @@ export default function LeaderCommunity() {
   const [communityMembers, setCommunityMembers] = useState([]);
 
   useEffect(() => {
-    if (currentUser) {
-      fetchCommunities();
-    }
-  }, [currentUser]);
+    // if (currentUser) {
+      fetchCommunityMembers();
+    // }
+  }, []);
 
   const fetchCommunities = async () => {
-    try {
-      const response = await axios.get(`https://machjava.azurewebsites.net/customobj/getCommunity`, {
-        params: { leaderId: currentUser.id },
-      });
-      const filteredCommunities = response.data.filter((community, index) => index >= 3);
-
-
-      // dont set here
-      // setCommunities(filteredCommunities);
-
-      if (filteredCommunities.length > 0) {
-        fetchCommunityMembers(filteredCommunities[0].name,filteredCommunities);
-      }
-    } catch (error) {
-      console.error('Error fetching communities:', error);
-    }
+    
   };
 
-  const fetchCommunityMembers = async (communityName,filteredCommunities) => {
+  const fetchCommunityMembers = async () => {
+      
     try {
-      const response = await axios.get('https://machjava.azurewebsites.net/customer/getCustomersByCommunity', {
+      const response = await axios.get(`https://machjava.azurewebsites.net/customer/getCommunity`, {
+        params: { customerid: localStorage.getItem("customerId") },
+      });
+      // const filteredCommunities = response.data.filter((community, index) => index >= 3);
+
+      
+      // dont set here
+      // setCommunities(filteredCommunities);
+      setCommunityName(response.data)
+
+      // if (filteredCommunities.length > 0) {
+      //   fetchCommunityMembers(filteredCommunities[0].name,filteredCommunities);
+      // }
+      if (response.status == 200){
+      const response1 = await axios.get('https://machjava.azurewebsites.net/customer/getCustomersByCommunity', {
         params: {
-          communityName,
+          communityName : response.data,
         },
       });
 
-     let loggedInUser = currentUser.email;
-       let array = response.data.filter(each => each.email == loggedInUser);
-
-      // console.log("Community members response: ", response.data);
-      setCommunityMembers(array);
-      if(array.length > 0){
-        setCommunities(filteredCommunities);
+      if (response1.status == 200){
+        setCommunityMembers(response1.data);
+        const response2 = await axios.get('https://machjava.azurewebsites.net/customobj/getCommunity');
+        
+        console.log("community data", response2.data);
+        const myCommunity = response2.data.filter(community => community.name === response.data);
+        console.log("community data", myCommunity);
+        setCommunities(myCommunity)
       }
+      
+
+    }
     } catch (error) {
       console.error('Error fetching community members:', error);
     }
@@ -95,7 +99,7 @@ export default function LeaderCommunity() {
         setIconUrl('');
         setIsFormVisible(false);
         fetchCommunityMembers(response.data.name); 
-        window.location.reload(); 
+        // window.location.reload(); 
       }
     } catch (error) {
       console.error('Error creating community:', error);
@@ -221,6 +225,7 @@ export default function LeaderCommunity() {
           <div className="community-members-container">
             <h4 className='styledHeading'>Community Members</h4>
             <ul className="list-group">
+
               {communityMembers.map((member, index) => (
                 <li key={index} className="list-group-item">
                   {member.firstName} {member.lastName}
