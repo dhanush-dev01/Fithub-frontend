@@ -24,6 +24,8 @@
   
   .receipt-details p, .receipt-details li {
     margin: 10px 0;
+    color: black;
+    text-align: left;
   }
   
   .receipt-details ul {
