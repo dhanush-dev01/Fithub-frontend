@@ -397,6 +397,8 @@ const Login = () => {
 
   const handleSignInSubmit = async (e) => {
     e.preventDefault();
+    const formErrors = validateSignIn();
+    if (formErrors.length === 0) { 
     try {
       setLoading(true)
       const response = await axios.post(
@@ -434,6 +436,10 @@ const Login = () => {
     } catch (error) {
       setLoading(false)
       console.error("Error signing in:", error);
+    }
+    }
+    else {
+      formErrors.forEach((error) => toast.error(error));
     }
   };
   const validateSignUp = () => {
